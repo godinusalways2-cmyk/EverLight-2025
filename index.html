@@ -156,6 +156,8 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .space-card:hover {
             background: rgba(255, 255, 255, 0.1);
@@ -165,6 +167,7 @@
         .space-card.highlight {
             border: 1px solid var(--gold);
             background: linear-gradient(145deg, rgba(255,215,0,0.05), rgba(0,0,0,0));
+            grid-column: span 2; /* Full Width for Last Item */
         }
 
         .zone-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
@@ -179,7 +182,7 @@
         .zone-name { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
         .zone-desc { font-size: 1rem; color: #ccc; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
         
-        .action-point { font-size: 0.9rem; color: var(--white-gold); }
+        .action-point { font-size: 0.9rem; color: var(--white-gold); margin-top: auto; }
         .action-point strong { color: var(--gold); display: block; margin-bottom: 5px; }
 
         /* Hospitality Path Box */
@@ -211,6 +214,7 @@
         @media (max-width: 768px) {
             h1 { font-size: 3.5rem; }
             .space-grid { grid-template-columns: 1fr; }
+            .space-card.highlight { grid-column: span 1; }
             .path-steps { flex-direction: column; align-items: center; }
             .path-step::after { content: '↓'; right: 50%; top: auto; bottom: -25px; transform: translateX(50%); }
             .path-step { width: 100%; margin-bottom: 20px; }
@@ -413,20 +417,6 @@
                         안내 문구를 보고 직접 선물(꽃/카드)을 Pick (부담 Zero)
                     </div>
                 </div>
-
-                <div class="space-card">
-                    <div class="zone-header">
-                        <span class="zone-badge">Zone D</span>
-                        <span class="zone-icon">📸</span>
-                    </div>
-                    <div class="zone-name">Photo Zone</div>
-                    <div class="zone-desc">힙한 네온사인과 거울이 있는 인증샷 스팟</div>
-                    <div class="action-point">
-                        <strong>Action & Detail</strong>
-                        선물 들고 거울 셀카 촬영<br>
-                        자연스러운 SNS 업로드 유도
-                    </div>
-                </div>
             </div>
 
             <div class="path-box">
@@ -446,13 +436,8 @@
                     </div>
                     <div class="path-step">
                         <span class="step-num">3</span>
-                        <span class="step-title">선물 수령</span>
-                        <span class="step-desc">나가는 길 Zone C에서<br>무인 선물(꽃/카드) Pick</span>
-                    </div>
-                    <div class="path-step">
-                        <span class="step-num">4</span>
-                        <span class="step-title">인증 & 이동</span>
-                        <span class="step-desc">Zone D 포토존 촬영 후<br><strong>B1 교육실로 이동</strong></span>
+                        <span class="step-title">선물 & 이동</span>
+                        <span class="step-desc">Zone C 무인 선물 Pick 후<br><strong>B1 교육실로 이동</strong></span>
                     </div>
                 </div>
             </div>
