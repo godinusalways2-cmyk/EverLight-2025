@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 SPRING : EverLight Master Plan</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --gold: #ffd700;
+            --purple-deep: #1a0024;
+            --purple-mid: #6a0dad;
+            --purple-light: #d8bfd8;
+            --white-gold: #fffbe6;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --blur-amount: 12px;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            /* 전체 배경: 깊은 어둠에서 빛으로 이어지는 그라데이션 */
+            background-image: linear-gradient(to bottom, var(--purple-deep), #2e004f, #4b0082, var(--purple-mid), #8e44ad, var(--purple-light));
+            background-attachment: fixed; /* 배경 고정으로 깊이감 표현 */
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 은은한 빛 번짐 효과 오버레이 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(106, 13, 173, 0.4), transparent 70%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.2), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Hero Section */
+        header {
+            text-align: center;
+            padding: 120px 20px 80px;
+            /* 배경 이미지와 그라데이션 블렌딩 */
+            background: linear-gradient(rgba(26,0,36,0.7), rgba(26,0,36,0.9)), 
+                        url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&q=80&w=2000'); 
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin: 0;
+            /* 텍스트 자체에 빛나는 골드 그라데이션 적용 */
+            background: linear-gradient(to bottom, #ffffff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--purple-light);
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 120px;
+            opacity: 0; /* 스크롤 애니메이션용 초기값 */
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--white-gold);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        
+        h2::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            border-radius: 2px;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        /* Glassmorphism Card Style (공통) */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(106, 13, 173, 0.3);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        /* 1. The Flow Cards */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .flow-img-wrapper {
+            height: 160px;
+            position: relative;
+        }
+
+        .flow-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+            transition: 0.3s;
+        }
+        
+        .glass-card:hover .flow-img { filter: brightness(1); transform: scale(1.05); }
+
+        .flow-content {
+            padding: 25px;
+            position: relative;
+        }
+        
+        /* D-DAY 카드 특별 강조 */
+        .d-day-card {
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+        .d-day-card:hover {
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .flow-date {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+            display: block;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+
+        .flow-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .flow-desc {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 2. Run Sheet Table */
+        .run-sheet-wrapper {
+            @extend .glass-card;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .run-sheet {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .run-sheet th, .run-sheet td {
+            padding: 18px 25px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .run-sheet th {
+            background: rgba(46, 0, 79, 0.5);
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .highlight-row {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), transparent);
+            position: relative;
+        }
+        
+        .highlight-row td {
+            font-weight: 700;
+            color: var(--white-gold);
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+        
+        .highlight-row::before {
+            content: '⭐';
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+        }
+
+        /* 3. Space Map Visuals */
+        .space-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .space-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 280px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .space-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .space-item:hover img { transform: scale(1.1); }
+
+        .space-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(13,0,21,0.95), rgba(13,0,21,0.6) 70%, transparent);
+            padding: 30px 25px 25px;
+            backdrop-filter: blur(5px);
+        }
+
+        .zone-badge {
+            background: linear-gradient(45deg, var(--purple-mid), var(--purple-deep));
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 10px rgba(106, 13, 173, 0.4);
+        }
+        
+        /* Gift Garden 강조 */
+        .gift-zone { border: 2px solid var(--gold); }
+        .gift-zone .zone-badge { 
+            background: linear-gradient(45deg, var(--gold), #ff8c00);
+            color: #1a0024;
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .zone-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 10px 0 5px;
+            color: var(--white-gold);
+        }
+
+        .zone-desc {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* 4. Budget */
+        .budget-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .budget-item {
+            @extend .glass-card;
+            padding: 25px;
+            border-left: 5px solid var(--purple-mid);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .budget-item strong {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--white-gold);
+        }
+        
+        .budget-item span {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .urgent { 
+            border-left-color: #ff4444; 
+            background: linear-gradient(45deg, rgba(255, 68, 68, 0.1), var(--glass-bg));
+        }
+
+        footer {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* 반응형 처리 */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .space-grid { grid-template-columns: 1fr; }
+            .run-sheet th, .run-sheet td { padding: 15px 10px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="position: relative; z-index: 2;">
+            <div class="subtitle">2025 SPRING PROJECT</div>
+            <h1>EverLight</h1>
+            <div class="subtitle">영원한 생명의 빛 | Narrative of Light</div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section style="animation-delay: 0.2s;">
+            <h2>1. The Flow : 빛의 여정</h2>
+            <p style="color:rgba(255,255,255,0.7); margin-bottom:25px;">깊은 어둠에서 찬란한 빛으로 (Deep Purple to Shining Gold)</p>
+            <div class="flow-grid">
+                <div class="glass-card flow-card">
+                    <div class="flow-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=600" class="flow-img">
+                    </div>
+                    <div class="flow-content">
+                        <span class="flow-date">11.30 (W1)</span>
+                        <div class="flow-title">The Promised Light</div>
+                        <div class="flow-desc">Deep Purple. 가장 높은 곳의 엄숙한 빛. 기다림.</div>
+                    </div>
+                </div>
+                <div class="glass-card flow-card">
+                    <div class="flow-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1569429598276-857c5e2365bf?auto=format&fit=crop&q=80&w=600" class="flow-img">
+                    </div>
+                    <div class="flow-content">
+                        <span class="flow-date">12.07 (W2)</span>
+                        <div class="flow-title">The Coming Light</div>
+                        <div class="flow-desc">Purple. 어둠을 뚫고 내려오는 빛의 줄기.</div>
+                    </div>
+                </div>
+                <div class="glass-card flow-card">
+                    <div class="flow-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1545659635-42a15cb53905?auto=format&fit=crop&q=80&w=600" class="flow-img">
+                    </div>
+                    <div class="flow-content">
+                        <span class="flow-date">12.14 (W3)</span>
+                        <div class="flow-title">The Indwelling Light</div>
+                        <div class="flow-desc">Light Purple. 우리 곁에 머무는 따뜻한 빛.</div>
+                    </div>
+                </div>
+                <div class="glass-card flow-card d-day-card">
+                    <div class="flow-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1513267048331-5611cad62029?auto=format&fit=crop&q=80&w=600" class="flow-img">
+                    </div>
+                    <div class="flow-content" style="background: linear-gradient(to top, rgba(255,215,0,0.1), transparent);">
+                        <span class="flow-date" style="color:var(--gold); font-size:1rem;">12.21 (D-DAY)</span>
+                        <div class="flow-title" style="color:var(--white-gold);">The Shining Light</div>
+                        <div class="flow-desc" style="color: #fff;">White Gold. 세상을 밝히는 환희의 빛.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="animation-delay: 0.4s;">
+            <h2>2. D-DAY Run Sheet (12.21)</h2>
+            <p style="color:rgba(255,255,255,0.7); margin-bottom:25px;">Seamless Flow : 16:00 감동의 정점 (Peak Point)</p>
+            <div class="glass-card" style="padding:0;">
+                <table class="run-sheet">
+                    <thead>
+                        <tr>
+                            <th style="width:15%">Time</th>
+                            <th style="width:20%">Program</th>
+                            <th>Detail & Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>14:50</td>
+                            <td>Pre-Service</td>
+                            <td>[Intro] 기획의도 카드 배포 & 무드 조성</td>
+                        </tr>
+                        <tr>
+                            <td>15:00</td>
+                            <td>Opening</td>
+                            <td>[Video] 온기 프로젝트 스케치 & 대림절 오프닝</td>
+                        </tr>
+                        <tr>
+                            <td>15:01</td>
+                            <td>Worship</td>
+                            <td>[Praise] 경배와 찬양 (25') - 밝고 웅장하게</td>
+                        </tr>
+                        <tr>
+                            <td>15:27</td>
+                            <td>Message</td>
+                            <td>[Sermon] "The Shining Light" (두성광 목사)</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>15:42</td>
+                            <td>Ceremony</td>
+                            <td>[Candlelight] 도넛링 캔들 점화 & 봉헌 (Peak Point)</td>
+                        </tr>
+                        <tr>
+                            <td>16:00</td>
+                            <td>Closing</td>
+                            <td>[Ad] 광고 영상 & 축도 (2부 이동 안내)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section style="animation-delay: 0.6s;">
+            <h2>3. 4F Welcome Lounge Map</h2>
+            <p style="color:rgba(255,255,255,0.7); margin-bottom:25px;">Concept : Sacred Cafe & Gift Garden (Sophisticated & Comfortable)</p>
+            <div class="space-grid">
+                <div class="space-item glass-card">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800">
+                    <div class="space-overlay">
+                        <span class="zone-badge">Zone A</span>
+                        <div class="zone-name">Ordering Point</div>
+                        <div class="zone-desc">메뉴판을 보고 주문하는 웰컴 데스크 (Hotel Lobby Vibe)</div>
+                    </div>
+                </div>
+                <div class="space-item glass-card">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&q=80&w=800">
+                    <div class="space-overlay">
+                        <span class="zone-badge">Zone B</span>
+                        <div class="zone-name">The Living Room</div>
+                        <div class="zone-desc">캠핑 의자와 소파가 있는 편안한 라운지</div>
+                    </div>
+                </div>
+                <div class="space-item glass-card gift-zone">
+                    <img src="https://images.unsplash.com/photo-1563245159-f793f19d8c37?auto=format&fit=crop&q=80&w=800">
+                    <div class="space-overlay">
+                        <span class="zone-badge">Zone C (Self-Service)</span>
+                        <div class="zone-name" style="color:var(--gold)">Gift Garden</div>
+                        <div class="zone-desc">무인 선물 스테이션. "당신을 위한 빛과 꽃을 가져가세요."</div>
+                    </div>
+                </div>
+                <div class="space-item glass-card">
+                    <img src="https://images.unsplash.com/photo-1557002665-c548483b6b15?auto=format&fit=crop&q=80&w=800">
+                    <div class="space-overlay">
+                        <span class="zone-badge">Zone D</span>
+                        <div class="zone-name">Photo Zone</div>
+                        <div class="zone-desc">거울과 네온사인이 있는 힙한 인증샷 스팟</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="animation-delay: 0.8s;">
+            <h2>4. Budget Plan (Urgent Action)</h2>
+            <p style="color:rgba(255,255,255,0.7); margin-bottom:25px;">11월 말 결제 필수 항목 (선결제 요망)</p>
+            <div class="budget-list">
+                <div class="budget-item glass-card urgent">
+                    <strong>🖨️ 홍보/인쇄 (Urgent)</strong>
+                    <span>이화광고 선결제 (현수막, 배너, 포토존 출력물)</span>
+                </div>
+                <div class="budget-item glass-card">
+                    <strong>🕯️ 데코/활동</strong>
+                    <span>4주간 사용할 대형 캔들 및 D-Day 도넛링 재료</span>
+                </div>
+                <div class="budget-item glass-card">
+                    <strong>☕ 공간/집기</strong>
+                    <span>웰컴 라운지용 커피 서버, 캠핑 가구 등 비품 구매</span>
+                </div>
+                <div class="budget-item glass-card">
+                    <strong>🎁 선물 (무인 시스템)</strong>
+                    <span>메시지 카드, 꽃(생화/조화), 고급 포장재 대량 구매</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            2025 SPRING WORSHIP COMMITTEE | Project EverLight | Soli Deo Gloria
+        </footer>
+
+    </div>
+</body>
+</html>
