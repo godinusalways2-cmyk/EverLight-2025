@@ -108,7 +108,7 @@
             padding: 0 5px;
         }
 
-        /* 1. Flow Visuals (Simple) */
+        /* 1. Flow Visuals */
         .flow-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -119,9 +119,7 @@
         .glass-card:hover .flow-img { transform: scale(1.1); filter: brightness(1); }
         
         .flow-overlay {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 20px;
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
             background: linear-gradient(transparent, rgba(0,0,0,0.9));
         }
         .flow-date { color: var(--gold); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px;}
@@ -143,66 +141,61 @@
         .sub-list li { margin-bottom: 5px; list-style-type: none; position: relative; padding-left: 15px; }
         .sub-list li::before { content: '•'; position: absolute; left: 0; color: var(--gold); }
 
-        /* 3. Space Map & Hospitality Path */
+        /* 3. Space Map (Text Version) */
         .space-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
             margin-bottom: 40px;
         }
-        .space-item {
-            position: relative;
-            min-height: 250px;
+        .space-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: #000;
         }
-        .space-content {
-            padding: 25px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
+        .space-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: var(--gold);
         }
+        .space-card.highlight {
+            border: 1px solid var(--gold);
+            background: linear-gradient(145deg, rgba(255,215,0,0.05), rgba(0,0,0,0));
+        }
+
+        .zone-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
         .zone-badge {
-            background: var(--purple-mid); color: #fff;
-            padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;
-            align-self: flex-start; margin-bottom: 10px;
+            background: var(--purple-mid); color: #fff; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: bold;
         }
-        .zone-name { font-size: 1.4rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
-        .zone-detail { font-size: 0.95rem; color: #ccc; line-height: 1.5; }
-        .zone-detail span { display: block; color: var(--gold); font-size: 0.85rem; margin-top: 5px; }
+        .highlight .zone-badge { background: var(--gold); color: #000; }
+        
+        .zone-icon { font-size: 2rem; }
+
+        .zone-name { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
+        .zone-desc { font-size: 1rem; color: #ccc; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        
+        .action-point { font-size: 0.9rem; color: var(--white-gold); }
+        .action-point strong { color: var(--gold); display: block; margin-bottom: 5px; }
 
         /* Hospitality Path Box */
         .path-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px dashed rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             padding: 30px;
             margin-top: 30px;
         }
         .path-steps {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 20px;
+            display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;
         }
-        .path-step {
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-            position: relative;
-        }
+        .path-step { flex: 1; min-width: 150px; text-align: center; position: relative; }
         .path-step::after {
-            content: '→';
-            position: absolute;
-            right: -15px;
-            top: 20px;
-            color: rgba(255,255,255,0.3);
-            font-size: 1.5rem;
+            content: '→'; position: absolute; right: -15px; top: 20px; color: rgba(255,255,255,0.3); font-size: 1.5rem;
         }
         .path-step:last-child::after { content: none; }
         
@@ -213,11 +206,6 @@
         .step-title { display: block; font-weight: bold; margin-bottom: 5px; color: #fff; }
         .step-desc { font-size: 0.85rem; color: #aaa; }
 
-        /* 4. Budget */
-        .budget-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .budget-item { padding: 30px; border-left: 4px solid var(--purple-mid); display: flex; flex-direction: column; justify-content: space-between; }
-        .urgent { border-left-color: #ff4444; background: rgba(255, 68, 68, 0.05); }
-
         footer { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 50px; color: #888; font-size: 0.9rem; }
 
         @media (max-width: 768px) {
@@ -226,7 +214,6 @@
             .path-steps { flex-direction: column; align-items: center; }
             .path-step::after { content: '↓'; right: 50%; top: auto; bottom: -25px; transform: translateX(50%); }
             .path-step { width: 100%; margin-bottom: 20px; }
-            .path-step:last-child { margin-bottom: 0; }
         }
     </style>
 </head>
@@ -289,7 +276,7 @@
                 </div>
                 <div class="glass-card" style="border: 2px solid var(--gold);">
                     <div class="flow-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1512474932049-78ea796b6e4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                        <img src="https://images.unsplash.com/photo-1543589077-47d81606c1bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
                         <div class="flow-overlay">
                             <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
                             <div class="flow-title">The Shining Light</div>
@@ -385,52 +372,59 @@
             <h2>3. 4F Welcome Lounge Map & Path</h2>
             
             <div class="space-grid">
-                <div class="space-item">
-                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
-                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
-                            <span class="zone-badge">Zone A</span>
-                            <div class="zone-name">Ordering Point</div>
-                            <div class="zone-detail">
-                                "어서오세요, 어떤 음료 드릴까요?"<br>
-                                <span>Action: 메뉴판 제공, 웰컴 드링크 주문 접수</span>
-                            </div>
-                        </div>
+                <div class="space-card">
+                    <div class="zone-header">
+                        <span class="zone-badge">Zone A</span>
+                        <span class="zone-icon">☕</span>
+                    </div>
+                    <div class="zone-name">Ordering Point</div>
+                    <div class="zone-desc">입구에 위치한 웰컴 데스크 (Cafe Concept)</div>
+                    <div class="action-point">
+                        <strong>Action & Detail</strong>
+                        "어서오세요, 어떤 음료 드릴까요?"<br>
+                        메뉴판 제공 및 웰컴 드링크 주문 접수
                     </div>
                 </div>
-                <div class="space-item">
-                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
-                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
-                            <span class="zone-badge">Zone B</span>
-                            <div class="zone-name">The Living Room</div>
-                            <div class="zone-detail">
-                                캠핑 의자와 소파가 있는 라운지<br>
-                                <span>Action: 리더/스탭과 1:1 또는 1:다수 가벼운 교제</span>
-                            </div>
-                        </div>
+
+                <div class="space-card">
+                    <div class="zone-header">
+                        <span class="zone-badge">Zone B</span>
+                        <span class="zone-icon">🛋️</span>
+                    </div>
+                    <div class="zone-name">The Living Room</div>
+                    <div class="zone-desc">캠핑 의자와 소파가 있는 메인 라운지</div>
+                    <div class="action-point">
+                        <strong>Action & Detail</strong>
+                        편안하게 착석하여 음료 섭취<br>
+                        리더/스탭과 1:1 또는 1:다수 가벼운 아이스브레이킹
                     </div>
                 </div>
-                <div class="space-item" style="border: 2px solid var(--gold);">
-                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1563245159-f793f19d8c37?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
-                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
-                            <span class="zone-badge" style="background:var(--gold); color:#000;">Zone C (Self)</span>
-                            <div class="zone-name" style="color:var(--gold);">Gift Garden</div>
-                            <div class="zone-detail">
-                                무인 선물 스테이션 (꽃/카드)<br>
-                                <span>Action: 마음에 드는 선물 직접 Pick (부담 Zero)</span>
-                            </div>
-                        </div>
+
+                <div class="space-card highlight">
+                    <div class="zone-header">
+                        <span class="zone-badge">Zone C</span>
+                        <span class="zone-icon">💐</span>
+                    </div>
+                    <div class="zone-name" style="color:var(--gold)">Gift Garden (Self)</div>
+                    <div class="zone-desc">나가는 길에 위치한 무인 선물 스테이션</div>
+                    <div class="action-point">
+                        <strong>Action & Detail</strong>
+                        "당신을 위한 빛과 꽃입니다"<br>
+                        안내 문구를 보고 직접 선물(꽃/카드)을 Pick (부담 Zero)
                     </div>
                 </div>
-                <div class="space-item">
-                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1495069781661-d64821a329d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
-                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
-                            <span class="zone-badge">Zone D</span>
-                            <div class="zone-name">Photo Zone</div>
-                            <div class="zone-detail">
-                                힙한 거울 샷 & 네온사인<br>
-                                <span>Action: 선물 들고 인증샷 촬영 및 SNS 업로드</span>
-                            </div>
-                        </div>
+
+                <div class="space-card">
+                    <div class="zone-header">
+                        <span class="zone-badge">Zone D</span>
+                        <span class="zone-icon">📸</span>
+                    </div>
+                    <div class="zone-name">Photo Zone</div>
+                    <div class="zone-desc">힙한 네온사인과 거울이 있는 인증샷 스팟</div>
+                    <div class="action-point">
+                        <strong>Action & Detail</strong>
+                        선물 들고 거울 셀카 촬영<br>
+                        자연스러운 SNS 업로드 유도
                     </div>
                 </div>
             </div>
@@ -460,29 +454,6 @@
                         <span class="step-title">인증 & 이동</span>
                         <span class="step-desc">Zone D 포토존 촬영 후<br><strong>B1 교육실로 이동</strong></span>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2>4. Budget (Action Required)</h2>
-            <div class="budget-list">
-                <div class="budget-item glass-card urgent">
-                    <strong style="color:var(--gold)">🖨️ 홍보/인쇄 (Urgent)</strong>
-                    <p>이화광고 선결제 (현수막, 배너 등)</p>
-                    <span style="font-size:0.8rem; color:#ffaaaa;">11월 말 결제 필수</span>
-                </div>
-                <div class="budget-item glass-card">
-                    <strong>🕯️ 데코/활동</strong>
-                    <p>4주간 사용할 대형 캔들, D-Day 도넛링 재료 구매</p>
-                </div>
-                <div class="budget-item glass-card">
-                    <strong>☕ 환영/공간</strong>
-                    <p>웰컴 라운지용 커피 서버, 캠핑 가구, 조명 비품</p>
-                </div>
-                <div class="budget-item glass-card">
-                    <strong>🎁 선물 (무인 시스템)</strong>
-                    <p>메시지 카드, 꽃(생화/조화), 포장재 대량 구매</p>
                 </div>
             </div>
         </section>
