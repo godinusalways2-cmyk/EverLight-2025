@@ -76,7 +76,6 @@
             align-items: center;
         }
 
-        /* Glassmorphism Common */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--blur-amount));
@@ -87,14 +86,12 @@
         }
         .glass-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.4); }
 
-        /* 0. Context Section (New) */
+        /* 0. Context Section */
         .context-box {
             padding: 40px;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--gold);
-            position: relative;
         }
-        
         .context-title {
             color: var(--gold);
             font-size: 1.2rem;
@@ -104,13 +101,6 @@
             margin-bottom: 15px;
             display: block;
         }
-
-        .context-text {
-            font-size: 1.1rem;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-
         .highlight-text {
             color: #fff;
             font-weight: bold;
@@ -118,19 +108,25 @@
             padding: 0 5px;
         }
 
-        /* 1. Flow Visuals */
+        /* 1. Flow Visuals (Simple) */
         .flow-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
+            gap: 20px;
         }
-        .flow-img-wrapper { height: 180px; overflow: hidden; }
-        .flow-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .glass-card:hover .flow-img { transform: scale(1.1); }
-        .flow-content { padding: 25px; }
-        .flow-date { color: var(--gold); font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; display: block;}
-        .flow-title { font-weight: bold; font-size: 1.3rem; margin: 0 0 10px 0; color: #fff; line-height: 1.3; }
-        .flow-desc { font-size: 0.95rem; color: #ccc; }
+        .flow-img-wrapper { height: 200px; overflow: hidden; position: relative; }
+        .flow-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: brightness(0.8); }
+        .glass-card:hover .flow-img { transform: scale(1.1); filter: brightness(1); }
+        
+        .flow-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+        .flow-date { color: var(--gold); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px;}
+        .flow-title { font-weight: bold; font-size: 1.4rem; color: #fff; line-height: 1.2; }
+        .flow-kr { font-size: 1rem; color: #ccc; margin-top: 5px; font-weight: normal; }
 
         /* 2. Full Timeline */
         .run-sheet { width: 100%; border-collapse: collapse; color: #fff; }
@@ -140,68 +136,97 @@
         .time-col { width: 15%; font-weight: bold; color: var(--purple-light); }
         .prog-col { width: 25%; font-weight: bold; }
         .desc-col { color: #ddd; }
+        .desc-col strong { color: #fff; }
 
         .highlight-row { background: rgba(255, 215, 0, 0.1); }
-        .highlight-row td { color: var(--white-gold); }
         
-        .phase-divider {
-            background: linear-gradient(90deg, var(--purple-mid), transparent);
-            color: #fff;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-            display: inline-block;
-            font-size: 0.9rem;
-        }
+        .sub-list li { margin-bottom: 5px; list-style-type: none; position: relative; padding-left: 15px; }
+        .sub-list li::before { content: '•'; position: absolute; left: 0; color: var(--gold); }
 
-        /* 3. Space Map */
+        /* 3. Space Map & Hospitality Path */
         .space-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
+            margin-bottom: 40px;
         }
         .space-item {
             position: relative;
-            height: 320px;
+            min-height: 250px;
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.2);
+            background: #000;
         }
-        .space-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
-        .space-item:hover img { transform: scale(1.1); }
-        .space-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.95));
-            padding: 30px;
+        .space-content {
+            padding: 25px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
         }
         .zone-badge {
             background: var(--purple-mid); color: #fff;
             padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;
+            align-self: flex-start; margin-bottom: 10px;
         }
-        .zone-name { font-size: 1.4rem; font-weight: bold; margin-top: 10px; color: #fff; }
+        .zone-name { font-size: 1.4rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
+        .zone-detail { font-size: 0.95rem; color: #ccc; line-height: 1.5; }
+        .zone-detail span { display: block; color: var(--gold); font-size: 0.85rem; margin-top: 5px; }
+
+        /* Hospitality Path Box */
+        .path-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        .path-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .path-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+        .path-step::after {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: 20px;
+            color: rgba(255,255,255,0.3);
+            font-size: 1.5rem;
+        }
+        .path-step:last-child::after { content: none; }
+        
+        .step-num { 
+            display: inline-block; width: 30px; height: 30px; line-height: 30px; 
+            border-radius: 50%; background: var(--purple-mid); color: #fff; font-weight: bold; margin-bottom: 10px;
+        }
+        .step-title { display: block; font-weight: bold; margin-bottom: 5px; color: #fff; }
+        .step-desc { font-size: 0.85rem; color: #aaa; }
 
         /* 4. Budget */
         .budget-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
         .budget-item { padding: 30px; border-left: 4px solid var(--purple-mid); display: flex; flex-direction: column; justify-content: space-between; }
         .urgent { border-left-color: #ff4444; background: rgba(255, 68, 68, 0.05); }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 50px;
-            color: #888;
-            font-size: 0.9rem;
-        }
+        footer { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 50px; color: #888; font-size: 0.9rem; }
 
-        /* Mobile */
         @media (max-width: 768px) {
             h1 { font-size: 3.5rem; }
             .space-grid { grid-template-columns: 1fr; }
-            .run-sheet th, .run-sheet td { display: block; width: 100%; padding: 10px; }
-            .run-sheet tr { margin-bottom: 20px; display: block; border-bottom: 1px solid rgba(255,255,255,0.2); }
-            .time-col { color: var(--gold); margin-bottom: 5px; }
+            .path-steps { flex-direction: column; align-items: center; }
+            .path-step::after { content: '↓'; right: 50%; top: auto; bottom: -25px; transform: translateX(50%); }
+            .path-step { width: 100%; margin-bottom: 20px; }
+            .path-step:last-child { margin-bottom: 0; }
         }
     </style>
 </head>
@@ -220,24 +245,12 @@
         <section>
             <h2>0. Background & Purpose</h2>
             <div class="glass-card context-box">
-                <span class="context-title">프로젝트 배경 (Why)</span>
-                <p class="context-text">
-                    올 한 해 우리는 전반기와 후반기 전도축제를 연결하는 <strong>&lt;온기&gt; 프로젝트</strong>를 진행해왔습니다.<br>
-                    이번 촛불예배는 단순한 연말 행사가 아닌, <span class="highlight-text">온기 프로젝트의 완결판</span>입니다.
+                <span class="context-title">프로젝트 배경 (Context)</span>
+                <p class="highlight-text" style="display:inline-block; margin-bottom:10px;">온기 프로젝트의 완결판 (Final Chapter)</p>
+                <p style="color:#ddd;">
+                    올 한 해 진행된 &lt;온기&gt; 프로젝트의 의미를 지속하며, 영원한 빛이신 예수님을 통해 따뜻함을 완성합니다.<br>
+                    긴 호흡으로 애쓴 청년들을 격려하며 유종의 미를 거두는 것이 이번 촛불예배의 핵심 목적입니다.
                 </p>
-                <p class="context-text">
-                    예수라는 생명의 빛을 통해 세상에 온기를 전하고,<br>
-                    긴 호흡으로 온기를 전하기 위해 애썼던 <span class="highlight-text">청년들을 격려하며 유종의 미</span>를 거두고자 합니다.
-                </p>
-                
-                <div style="margin: 30px 0; border-top: 1px dashed rgba(255,255,255,0.2);"></div>
-
-                <span class="context-title">핵심 목표 (Goal)</span>
-                <ul style="list-style: none; padding: 0; color: #ddd;">
-                    <li style="margin-bottom: 10px;">✅ <strong>연결성:</strong> &lt;온기&gt;의 의미를 지속하여 복음이 필요한 이들에게 따뜻함 전달</li>
-                    <li style="margin-bottom: 10px;">✅ <strong>격려:</strong> 1년간 수고한 스프링 청년들에게 위로와 축복 선사</li>
-                    <li>✅ <strong>경험:</strong> 영원한 생명의 빛이신 예수님을 감각적으로 경험하는 예배</li>
-                </ul>
             </div>
         </section>
         
@@ -247,41 +260,41 @@
                 <div class="glass-card">
                     <div class="flow-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                    </div>
-                    <div class="flow-content">
-                        <span class="flow-date">11.30 (W1)</span>
-                        <div class="flow-title">The Promised Light</div>
-                        <div class="flow-desc">가장 높은 곳의 엄숙한 빛.<br>대림절 카드 배포 및 기대감 조성.</div>
+                        <div class="flow-overlay">
+                            <span class="flow-date">11.30 (W1)</span>
+                            <div class="flow-title">The Promised Light</div>
+                            <div class="flow-kr">약속된 빛</div>
+                        </div>
                     </div>
                 </div>
                 <div class="glass-card">
                     <div class="flow-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                    </div>
-                    <div class="flow-content">
-                        <span class="flow-date">12.07 (W2)</span>
-                        <div class="flow-title">The Coming Light</div>
-                        <div class="flow-desc">어둠을 뚫고 내려오는 빛.<br>예배 공간과 조명 연출 점검.</div>
+                        <div class="flow-overlay">
+                            <span class="flow-date">12.07 (W2)</span>
+                            <div class="flow-title">The Coming Light</div>
+                            <div class="flow-kr">세상에 오신 빛</div>
+                        </div>
                     </div>
                 </div>
                 <div class="glass-card">
                     <div class="flow-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1602523961358-f9f03dd557db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                    </div>
-                    <div class="flow-content">
-                        <span class="flow-date">12.14 (W3)</span>
-                        <div class="flow-title">The Indwelling Light</div>
-                        <div class="flow-desc">우리 곁에 머무는 따뜻한 빛.<br>새가족 환영 라운지(4F) 리허설.</div>
+                        <div class="flow-overlay">
+                            <span class="flow-date">12.14 (W3)</span>
+                            <div class="flow-title">The Indwelling Light</div>
+                            <div class="flow-kr">거하시는 빛</div>
+                        </div>
                     </div>
                 </div>
                 <div class="glass-card" style="border: 2px solid var(--gold);">
                     <div class="flow-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1512474932049-78ea796b6e4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                    </div>
-                    <div class="flow-content">
-                        <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
-                        <div class="flow-title">The Shining Light</div>
-                        <div class="flow-desc">세상을 밝히는 환희의 빛.<br>Candlelight & Street Blessing.</div>
+                        <div class="flow-overlay">
+                            <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
+                            <div class="flow-title">The Shining Light</div>
+                            <div class="flow-kr">비추는 빛</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -296,11 +309,6 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="time-col">14:50 (10')</td>
-                            <td class="prog-col">Pre-Service</td>
-                            <td class="desc-col">기획의도 카드 배포 & 무드 조성 (BGM: Pad)</td>
-                        </tr>
-                        <tr>
                             <td class="time-col">15:00 (01')</td>
                             <td class="prog-col">Opening</td>
                             <td class="desc-col">[Video] 온기 프로젝트 스케치 & 대림절 오프닝 (암전)</td>
@@ -308,12 +316,7 @@
                         <tr>
                             <td class="time-col">15:01 (25')</td>
                             <td class="prog-col">Worship</td>
-                            <td class="desc-col">[Praise] 경배와 찬양 (예수님의 오심, 밝고 웅장하게)</td>
-                        </tr>
-                        <tr>
-                            <td class="time-col">15:26 (1.5')</td>
-                            <td class="prog-col">Bridge</td>
-                            <td class="desc-col">[Video] 설교 연결 브릿지 영상</td>
+                            <td class="desc-col">경배와 찬양 (예수님의 오심, 밝고 웅장하게)</td>
                         </tr>
                         <tr>
                             <td class="time-col">15:27 (15')</td>
@@ -325,15 +328,14 @@
                             <td class="prog-col" style="color:var(--gold)">Ceremony</td>
                             <td class="desc-col" style="color:#fff; font-weight:bold;">
                                 ★ Candlelight (Peak Point)<br>
-                                1. 도넛링 캔들 점화 (밝히고 싶은 영역 작성)<br>
-                                2. 빛의 확산 (강대상 → 회중석)<br>
-                                3. 결단 찬양: "빛을 들고 세상으로"
+                                - 도넛링 캔들 점화 (빛의 확산)<br>
+                                - 결단 찬양: "빛을 들고 세상으로"
                             </td>
                         </tr>
                         <tr>
                             <td class="time-col">16:00 (10')</td>
                             <td class="prog-col">Closing</td>
-                            <td class="desc-col">[Ad] 광고 영상 & 축도 (2부 장소 및 선물 수령 안내)</td>
+                            <td class="desc-col">광고 & 축도 (2부 활동 장소 및 선물 수령 안내)</td>
                         </tr>
                     </tbody>
 
@@ -345,8 +347,20 @@
                             <td class="time-col">16:15 ~</td>
                             <td class="prog-col">Welcome & Class</td>
                             <td class="desc-col">
-                                <strong>A. 새가족 (4F):</strong> 웰컴 라운지 티타임 & 무인 선물 수령<br>
-                                <strong>B. 기존가족:</strong> 선택활동 (캔들/키링 만들기, 특강) or 셀모임
+                                <strong>A. 새가족 (New Comer)</strong><br>
+                                <ul class="sub-list" style="margin-top:5px; padding-left:0; color:#ccc;">
+                                    <li>웰컴 라운지(4F)에서 무인 선물 수령</li>
+                                    <li><strong>지하 1층(B1) 새가족 교육장소로 이동</strong></li>
+                                    <li>2~4주차 교육 프로그램 진행</li>
+                                </ul>
+                                <br>
+                                <strong>B. 선택활동 (Activity Option)</strong><br>
+                                <ul class="sub-list" style="margin-top:5px; padding-left:0; color:#ccc;">
+                                    <li>원데이 클래스 : 캔들 만들기</li>
+                                    <li>키링 만들기</li>
+                                    <li>소명 특강</li>
+                                    <li>셀모임 (기존 소그룹)</li>
+                                </ul>
                             </td>
                         </tr>
                         <tr>
@@ -359,8 +373,7 @@
                             <td class="prog-col" style="color:var(--gold);">Spring Holy Night</td>
                             <td class="desc-col">
                                 <strong>🎸 거리 찬양 & 블레싱 (Outreach)</strong><br>
-                                - 곡: 촛불하나, Light On, 저 들 밖에 한밤중에<br>
-                                - 빛이 세상으로 흘러가는 실제적 적용
+                                - 곡: 촛불하나, Light On, 저 들 밖에 한밤중에
                             </td>
                         </tr>
                     </tbody>
@@ -369,12 +382,116 @@
         </section>
 
         <section>
-            <h2>3. 4F Welcome Lounge Map</h2>
-            <p style="color:#ddd; margin-bottom:20px;">Concept: Sacred Cafe & Gift Garden (부담 없는 환대)</p>
+            <h2>3. 4F Welcome Lounge Map & Path</h2>
+            
             <div class="space-grid">
                 <div class="space-item">
-                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-                    <div class="space-overlay">
-                        <span class="zone-badge">Zone A</span>
-                        <div class="zone-name">Ordering Point</div>
-                        <p>메뉴판
+                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
+                            <span class="zone-badge">Zone A</span>
+                            <div class="zone-name">Ordering Point</div>
+                            <div class="zone-detail">
+                                "어서오세요, 어떤 음료 드릴까요?"<br>
+                                <span>Action: 메뉴판 제공, 웰컴 드링크 주문 접수</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-item">
+                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
+                            <span class="zone-badge">Zone B</span>
+                            <div class="zone-name">The Living Room</div>
+                            <div class="zone-detail">
+                                캠핑 의자와 소파가 있는 라운지<br>
+                                <span>Action: 리더/스탭과 1:1 또는 1:다수 가벼운 교제</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-item" style="border: 2px solid var(--gold);">
+                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1563245159-f793f19d8c37?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
+                            <span class="zone-badge" style="background:var(--gold); color:#000;">Zone C (Self)</span>
+                            <div class="zone-name" style="color:var(--gold);">Gift Garden</div>
+                            <div class="zone-detail">
+                                무인 선물 스테이션 (꽃/카드)<br>
+                                <span>Action: 마음에 드는 선물 직접 Pick (부담 Zero)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-item">
+                    <div class="space-content" style="background-image: url('https://images.unsplash.com/photo-1495069781661-d64821a329d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.85); padding: 20px; border-radius: 10px;">
+                            <span class="zone-badge">Zone D</span>
+                            <div class="zone-name">Photo Zone</div>
+                            <div class="zone-detail">
+                                힙한 거울 샷 & 네온사인<br>
+                                <span>Action: 선물 들고 인증샷 촬영 및 SNS 업로드</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="path-box">
+                <h3 style="margin:0 0 20px 0; color:var(--white-gold); border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                    👣 Hospitality Path (새가족 환대 동선)
+                </h3>
+                <div class="path-steps">
+                    <div class="path-step">
+                        <span class="step-num">1</span>
+                        <span class="step-title">입장 & 주문</span>
+                        <span class="step-desc">4층 도착,<br>Zone A에서 음료 주문</span>
+                    </div>
+                    <div class="path-step">
+                        <span class="step-num">2</span>
+                        <span class="step-title">착석 & 교제</span>
+                        <span class="step-desc">Zone B 라운지 착석,<br>가벼운 아이스브레이킹</span>
+                    </div>
+                    <div class="path-step">
+                        <span class="step-num">3</span>
+                        <span class="step-title">선물 수령</span>
+                        <span class="step-desc">나가는 길 Zone C에서<br>무인 선물(꽃/카드) Pick</span>
+                    </div>
+                    <div class="path-step">
+                        <span class="step-num">4</span>
+                        <span class="step-title">인증 & 이동</span>
+                        <span class="step-desc">Zone D 포토존 촬영 후<br><strong>B1 교육실로 이동</strong></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Budget (Action Required)</h2>
+            <div class="budget-list">
+                <div class="budget-item glass-card urgent">
+                    <strong style="color:var(--gold)">🖨️ 홍보/인쇄 (Urgent)</strong>
+                    <p>이화광고 선결제 (현수막, 배너 등)</p>
+                    <span style="font-size:0.8rem; color:#ffaaaa;">11월 말 결제 필수</span>
+                </div>
+                <div class="budget-item glass-card">
+                    <strong>🕯️ 데코/활동</strong>
+                    <p>4주간 사용할 대형 캔들, D-Day 도넛링 재료 구매</p>
+                </div>
+                <div class="budget-item glass-card">
+                    <strong>☕ 환영/공간</strong>
+                    <p>웰컴 라운지용 커피 서버, 캠핑 가구, 조명 비품</p>
+                </div>
+                <div class="budget-item glass-card">
+                    <strong>🎁 선물 (무인 시스템)</strong>
+                    <p>메시지 카드, 꽃(생화/조화), 포장재 대량 구매</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>2025 SPRING WORSHIP COMMITTEE</p>
+            <p style="color: #666;">Project EverLight : Connecting Warmth to Eternal Light</p>
+        </footer>
+
+    </div>
+</body>
+</html>
