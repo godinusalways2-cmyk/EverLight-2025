@@ -84,44 +84,33 @@
             overflow: hidden;
             transition: all 0.3s ease;
         }
-        .glass-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.4); }
 
-        /* 0. Context Section */
-        .context-box {
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--gold);
+        /* 0. Context Section (Deep Dive) */
+        .context-box { padding: 40px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--gold); }
+        .context-title { color: var(--gold); font-size: 1.2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
+        .context-text { font-size: 1.05rem; color: #ddd; margin-bottom: 20px; }
+        .highlight-text { color: #fff; font-weight: bold; background: linear-gradient(120deg, rgba(106, 13, 173, 0.5) 0%, rgba(106, 13, 173, 0.1) 100%); padding: 0 5px; }
+
+        /* Detail Toggle (Accordion) Style */
+        details { margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.2); }
+        summary { cursor: pointer; color: var(--gold); font-weight: bold; list-style: none; display: flex; align-items: center; gap: 10px; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '▼'; font-size: 0.8rem; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
+        
+        .detail-content { 
+            margin-top: 15px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; color: #ccc; font-size: 0.95rem; line-height: 1.8;
         }
-        .context-title {
-            color: var(--gold);
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            display: block;
-        }
-        .highlight-text {
-            color: #fff;
-            font-weight: bold;
-            background: linear-gradient(120deg, rgba(106, 13, 173, 0.5) 0%, rgba(106, 13, 173, 0.1) 100%);
-            padding: 0 5px;
-        }
+        .detail-content strong { color: #fff; }
+        .detail-content ul { padding-left: 20px; margin: 10px 0; }
+        .detail-content li { margin-bottom: 5px; }
 
         /* 1. Flow Visuals */
-        .flow-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
+        .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
         .flow-img-wrapper { height: 200px; overflow: hidden; position: relative; }
         .flow-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: brightness(0.8); }
         .glass-card:hover .flow-img { transform: scale(1.1); filter: brightness(1); }
-        
-        .flow-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0; padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-        }
+        .flow-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
         .flow-date { color: var(--gold); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px;}
         .flow-title { font-weight: bold; font-size: 1.4rem; color: #fff; line-height: 1.2; }
         .flow-kr { font-size: 1rem; color: #ccc; margin-top: 5px; font-weight: normal; }
@@ -130,82 +119,37 @@
         .run-sheet { width: 100%; border-collapse: collapse; color: #fff; }
         .run-sheet th, .run-sheet td { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; vertical-align: top; }
         .run-sheet th { background: rgba(0,0,0,0.3); color: var(--gold); font-weight: bold; }
-        
         .time-col { width: 15%; font-weight: bold; color: var(--purple-light); }
         .prog-col { width: 25%; font-weight: bold; }
         .desc-col { color: #ddd; }
-        .desc-col strong { color: #fff; }
-
         .highlight-row { background: rgba(255, 215, 0, 0.1); }
-        
         .sub-list li { margin-bottom: 5px; list-style-type: none; position: relative; padding-left: 15px; }
         .sub-list li::before { content: '•'; position: absolute; left: 0; color: var(--gold); }
 
-        /* 3. Space Map (Text Version) */
-        .space-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-bottom: 40px;
-        }
+        /* 3. Space Map */
+        .space-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-bottom: 40px; }
         .space-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px; padding: 30px; transition: all 0.3s ease;
+            position: relative; overflow: hidden; display: flex; flex-direction: column;
         }
-        .space-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
-        .space-card.highlight {
-            border: 1px solid var(--gold);
-            background: linear-gradient(145deg, rgba(255,215,0,0.05), rgba(0,0,0,0));
-            grid-column: span 2; /* Full Width for Last Item */
-        }
-
+        .space-card:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); border-color: var(--gold); }
+        .space-card.highlight { border: 1px solid var(--gold); background: linear-gradient(145deg, rgba(255,215,0,0.05), rgba(0,0,0,0)); grid-column: span 2; }
         .zone-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-        .zone-badge {
-            background: var(--purple-mid); color: #fff; padding: 5px 12px;
-            border-radius: 20px; font-size: 0.8rem; font-weight: bold;
-        }
+        .zone-badge { background: var(--purple-mid); color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
         .highlight .zone-badge { background: var(--gold); color: #000; }
-        
-        .zone-icon { font-size: 2rem; }
-
         .zone-name { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
         .zone-desc { font-size: 1rem; color: #ccc; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
-        
         .action-point { font-size: 0.9rem; color: var(--white-gold); margin-top: auto; }
         .action-point strong { color: var(--gold); display: block; margin-bottom: 5px; }
 
         /* Hospitality Path Box */
-        .path-box {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 30px;
-        }
-        .path-steps {
-            display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;
-        }
+        .path-box { background: rgba(0, 0, 0, 0.3); border: 1px dashed rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 30px; margin-top: 30px; }
+        .path-steps { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
         .path-step { flex: 1; min-width: 150px; text-align: center; position: relative; }
-        .path-step::after {
-            content: '→'; position: absolute; right: -15px; top: 20px; color: rgba(255,255,255,0.3); font-size: 1.5rem;
-        }
+        .path-step::after { content: '→'; position: absolute; right: -15px; top: 20px; color: rgba(255,255,255,0.3); font-size: 1.5rem; }
         .path-step:last-child::after { content: none; }
-        
-        .step-num { 
-            display: inline-block; width: 30px; height: 30px; line-height: 30px; 
-            border-radius: 50%; background: var(--purple-mid); color: #fff; font-weight: bold; margin-bottom: 10px;
-        }
+        .step-num { display: inline-block; width: 30px; height: 30px; line-height: 30px; border-radius: 50%; background: var(--purple-mid); color: #fff; font-weight: bold; margin-bottom: 10px; }
         .step-title { display: block; font-weight: bold; margin-bottom: 5px; color: #fff; }
         .step-desc { font-size: 0.85rem; color: #aaa; }
 
@@ -236,12 +180,33 @@
         <section>
             <h2>0. Background & Purpose</h2>
             <div class="glass-card context-box">
-                <span class="context-title">프로젝트 배경 (Context)</span>
-                <p class="highlight-text" style="display:inline-block; margin-bottom:10px;">온기 프로젝트의 완결판 (Final Chapter)</p>
-                <p style="color:#ddd;">
-                    올 한 해 진행된 &lt;온기&gt; 프로젝트의 의미를 지속하며, 영원한 빛이신 예수님을 통해 따뜻함을 완성합니다.<br>
-                    긴 호흡으로 애쓴 청년들을 격려하며 유종의 미를 거두는 것이 이번 촛불예배의 핵심 목적입니다.
+                <span class="context-title">기획 배경 및 신학적 의미 (Theological Context)</span>
+                <p class="highlight-text" style="display:inline-block; margin-bottom:15px;">"온기(Warmth)는 빛(Light)으로부터 옵니다."</p>
+                <p class="context-text">
+                    2025년 한 해 동안 우리는 전도축제를 통해 공동체의 '온기'를 전하기 위해 노력했습니다. 
+                    이제 그 온기의 근원이 되시는 <strong>'영원한 생명의 빛(EverLight)'</strong>이신 예수 그리스도를 조명하며 한 해를 매듭짓고자 합니다.
                 </p>
+                <p class="context-text">
+                    단순한 연말 행사가 아닌, 대림절 기간 동안 <strong>하늘의 빛이 우리 삶에 구체적으로 임재하고(Incarnation), 
+                    다시 세상을 향해 뻗어나가는(Expansion) 영적 여정</strong>을 경험하게 될 것입니다.
+                </p>
+                
+                <details>
+                    <summary>상세 기획 의도 및 기대 효과 보기</summary>
+                    <div class="detail-content">
+                        <strong>🎯 기획 목적 (Objectives)</strong>
+                        <ul>
+                            <li><strong>연결성:</strong> &lt;온기&gt; 프로젝트와 &lt;EverLight&gt;를 연결하여 사역의 연속성 확보.</li>
+                            <li><strong>격려:</strong> 1년간 전도를 위해 애쓴 청년들에게 '빛'을 선물하며 위로와 축복 제공.</li>
+                            <li><strong>복음 제시:</strong> 초청된 이들에게 예수 탄생의 의미를 감각적이고 직관적으로 전달.</li>
+                        </ul>
+                        <strong>💡 핵심 컨셉 (Concept Keywords)</strong>
+                        <ul>
+                            <li><strong>Vertical Gradient:</strong> 하늘(엄숙) → 땅(환희). 빛이 내려오는 수직적 흐름 시각화.</li>
+                            <li><strong>Sophisticated Hospitality:</strong> 세련되고 부담 없는 환대를 통한 마음 열기.</li>
+                        </ul>
+                    </div>
+                </details>
             </div>
         </section>
         
@@ -289,6 +254,18 @@
                     </div>
                 </div>
             </div>
+
+            <details>
+                <summary>주차별 설교 및 활동 상세 보기</summary>
+                <div class="detail-content">
+                    <ul>
+                        <li><strong>1주차 (약속된 빛):</strong> 대림절 카드 배포. "어두움 속에 빛을 기다리는 마음" (설교: 두성광 목사)</li>
+                        <li><strong>2주차 (세상에 오신 빛):</strong> 공간 조명 및 현수막 연출 시작. 빛의 강림 시각화.</li>
+                        <li><strong>3주차 (거하시는 빛):</strong> 우리 안에 내주하시는 성령의 조명. 웰컴 라운지 리허설.</li>
+                        <li><strong>4주차 (비추는 빛):</strong> D-DAY 촛불예배. 세상으로 빛을 반사하는 삶의 결단.</li>
+                    </ul>
+                </div>
+            </details>
         </section>
 
         <section>
@@ -339,19 +316,10 @@
                             <td class="prog-col">Welcome & Class</td>
                             <td class="desc-col">
                                 <strong>A. 새가족 (New Comer)</strong><br>
-                                <ul class="sub-list" style="margin-top:5px; padding-left:0; color:#ccc;">
-                                    <li>웰컴 라운지(4F)에서 무인 선물 수령</li>
-                                    <li><strong>지하 1층(B1) 새가족 교육장소로 이동</strong></li>
-                                    <li>2~4주차 교육 프로그램 진행</li>
-                                </ul>
+                                4F 라운지 무인 선물 수령 → <strong>B1 교육실 이동 (2~4주차 과정)</strong><br>
                                 <br>
                                 <strong>B. 선택활동 (Activity Option)</strong><br>
-                                <ul class="sub-list" style="margin-top:5px; padding-left:0; color:#ccc;">
-                                    <li>원데이 클래스 : 캔들 만들기</li>
-                                    <li>키링 만들기</li>
-                                    <li>소명 특강</li>
-                                    <li>셀모임 (기존 소그룹)</li>
-                                </ul>
+                                원데이 클래스(캔들/키링), 소명 특강, 기존 셀모임
                             </td>
                         </tr>
                         <tr>
@@ -370,6 +338,17 @@
                     </tbody>
                 </table>
             </div>
+
+            <details>
+                <summary>운영 체크포인트 및 큐시트 상세</summary>
+                <div class="detail-content">
+                    <ul>
+                        <li><strong>캔들 세리머니:</strong> "도넛링" 캔들 받침대 활용 (안전성 및 디자인 고려). 강대상에서 시작된 불이 회중석 전체로 퍼지는 시각적 효과 극대화.</li>
+                        <li><strong>이동 동선:</strong> 예배 종료 후 기존 청년들은 2부 활동 장소로, 새가족 안내팀은 4층 라운지로 신속하게 유도.</li>
+                        <li><strong>거리 찬양:</strong> 버스킹 형식으로 진행하되, 안전 요원 배치 및 시민 통행 방해 최소화.</li>
+                    </ul>
+                </div>
+            </details>
         </section>
 
         <section>
@@ -414,7 +393,7 @@
                     <div class="action-point">
                         <strong>Action & Detail</strong>
                         "당신을 위한 빛과 꽃입니다"<br>
-                        안내 문구를 보고 직접 선물(꽃/카드)을 Pick (부담 Zero)
+                        안내 문구를 보고 직접 선물(꽃/카드)을 Pick
                     </div>
                 </div>
             </div>
@@ -441,6 +420,16 @@
                     </div>
                 </div>
             </div>
+
+            <details>
+                <summary>4층 공간 기획 의도 (Why Sacred Cafe?)</summary>
+                <div class="detail-content">
+                    <ul>
+                        <li><strong>카페 컨셉의 이유:</strong> 낯선 교회 공간에 대한 경계심을 허물고, '성수동 팝업스토어' 같은 트렌디하고 편안한 분위기를 제공하기 위함.</li>
+                        <li><strong>무인 선물(Gift Garden)의 이유:</strong> 등록을 강요하는 느낌을 주지 않고, 스스로 선물을 선택하게 함으로써 <strong>'능동적인 축복'</strong>을 경험하게 하기 위함. (심리적 안전감 확보)</li>
+                    </ul>
+                </div>
+            </details>
         </section>
 
         <footer>
