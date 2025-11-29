@@ -28,7 +28,7 @@
             overflow-x: hidden;
         }
 
-        /* --- 인트로 오버레이 스타일 (수정됨) --- */
+        /* --- 인트로 오버레이 --- */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -44,17 +44,22 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none; /* 시작 전엔 숨김 */
+            /* 처음에 안 보이게 설정하되, 공간은 차지하게 함 (display:none 아님) */
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0; 
+            transition: opacity 0.5s;
         }
 
         /* 시작 버튼 컨테이너 */
         #start-container {
             text-align: center;
             z-index: 10001;
+            position: relative;
         }
 
         #enter-btn {
-            background: transparent;
+            background: rgba(0, 0, 0, 0.6);
             color: var(--gold);
             border: 2px solid var(--gold);
             padding: 15px 40px;
@@ -64,6 +69,8 @@
             border-radius: 50px;
             transition: all 0.3s;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         #enter-btn:hover {
@@ -230,8 +237,8 @@
     <div id="intro-overlay">
         <div id="start-container">
             <h1 style="font-size: 3rem; margin-bottom: 30px; text-shadow: 0 0 20px rgba(255,215,0,0.5);">EverLight</h1>
-            <button id="enter-btn" onclick="playIntro()">🔊 소리와 함께 입장하기</button>
-            <p style="color: #aaa; margin-top: 20px;">Click to enter with sound</p>
+            <button id="enter-btn" onclick="playIntro()">🔊 입장하기 (Enter)</button>
+            <p style="color: #aaa; margin-top: 20px;">Click to experience the narrative</p>
         </div>
 
         <video id="intro-video" playsinline>
@@ -535,26 +542,45 @@
         const skipBtn = document.getElementById('skip-btn');
         const container = document.querySelector('.container');
 
-        // 입장 버튼 누르면 실행
         function playIntro() {
-            startContainer.style.display = 'none'; // 버튼 숨김
-            video.style.display = 'block'; // 영상 보임
-            skipBtn.style.display = 'block'; // 스킵 버튼 보임
-            video.muted = false; // 소리 켬
-            video.play(); // 재생 시작
+            // UI 변경: 버튼 숨기고 영상 드러내기
+            startContainer.style.display = 'none';
+            video.style.opacity = '1'; 
+            skipBtn.style.display = 'block';
+
+            // 소리 설정 (가장 중요)
+            video.muted = false; // 음소거 해제
+            video.volume = 1.0;  // 볼륨 최대
+
+            // 재생 시도 (Promise 패턴 사용)
+            var playPromise = video.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // 자동재생 성공
+                    console.log("Audio Playback Started");
+                })
+                .catch(error => {
+                    // 브라우저가 막았을 경우 (예외처리)
+                    console.log("Autoplay was prevented. Fallback to muted.");
+                    video.muted = true;
+                    video.play();
+                });
+            }
         }
 
-        // 영상이 끝나면 실행되는 함수
+        // 영상이 끝나면 메인 화면으로 전환
         function endIntro() {
-            overlay.style.opacity = '0'; // 페이드 아웃
+            overlay.style.opacity = '0';
             
             setTimeout(() => {
                 overlay.style.display = 'none';
-                container.style.opacity = '1'; // 메인 컨텐츠 서서히 등장
+                container.style.opacity = '1';
+                // 혹시 모르니 영상 정지 및 리소스 해제
+                video.pause();
             }, 1000);
         }
 
-        // 영상이 종료되면 자동으로 넘어감
         video.onended = function() {
             endIntro();
         };
