@@ -25,10 +25,10 @@
             margin: 0;
             padding: 0;
             line-height: 1.7;
-            overflow-x: hidden; /* 인트로 중 스크롤 방지 */
+            overflow-x: hidden;
         }
 
-        /* --- 인트로 오버레이 스타일 --- */
+        /* --- 인트로 오버레이 스타일 (수정됨) --- */
         #intro-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -37,13 +37,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s ease-out; /* 페이드 아웃 효과 */
+            transition: opacity 1s ease-out;
         }
 
         #intro-video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 화면 꽉 채우기 */
+            object-fit: cover;
+            display: none; /* 시작 전엔 숨김 */
+        }
+
+        /* 시작 버튼 컨테이너 */
+        #start-container {
+            text-align: center;
+            z-index: 10001;
+        }
+
+        #enter-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        #enter-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
         }
 
         #skip-btn {
@@ -59,6 +85,7 @@
             font-size: 0.9rem;
             backdrop-filter: blur(5px);
             z-index: 10000;
+            display: none; /* 영상 시작하면 보임 */
         }
         /* --------------------------- */
 
@@ -66,7 +93,7 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 60px 20px 100px;
-            opacity: 0; /* 처음에 숨겨둠 */
+            opacity: 0;
             transition: opacity 1.5s ease-in;
         }
 
@@ -201,9 +228,16 @@
 <body>
 
     <div id="intro-overlay">
-        <video id="intro-video" autoplay muted playsinline>
+        <div id="start-container">
+            <h1 style="font-size: 3rem; margin-bottom: 30px; text-shadow: 0 0 20px rgba(255,215,0,0.5);">EverLight</h1>
+            <button id="enter-btn" onclick="playIntro()">🔊 소리와 함께 입장하기</button>
+            <p style="color: #aaa; margin-top: 20px;">Click to enter with sound</p>
+        </div>
+
+        <video id="intro-video" playsinline>
             <source src="opening.mp4" type="video/mp4">
         </video>
+        
         <button id="skip-btn" onclick="endIntro()">Skip Intro ⏭</button>
     </div>
 
@@ -496,32 +530,34 @@
 
     <script>
         const overlay = document.getElementById('intro-overlay');
+        const startContainer = document.getElementById('start-container');
         const video = document.getElementById('intro-video');
+        const skipBtn = document.getElementById('skip-btn');
         const container = document.querySelector('.container');
+
+        // 입장 버튼 누르면 실행
+        function playIntro() {
+            startContainer.style.display = 'none'; // 버튼 숨김
+            video.style.display = 'block'; // 영상 보임
+            skipBtn.style.display = 'block'; // 스킵 버튼 보임
+            video.muted = false; // 소리 켬
+            video.play(); // 재생 시작
+        }
 
         // 영상이 끝나면 실행되는 함수
         function endIntro() {
-            // 오버레이 페이드 아웃
-            overlay.style.opacity = '0';
+            overlay.style.opacity = '0'; // 페이드 아웃
             
-            // 1초 뒤에 완전히 화면에서 제거 및 메인 컨텐츠 표시
             setTimeout(() => {
                 overlay.style.display = 'none';
-                container.style.opacity = '1';
-                // 메인 컨텐츠 영상 재생 준비 (필요시)
+                container.style.opacity = '1'; // 메인 컨텐츠 서서히 등장
             }, 1000);
         }
 
-        // 영상이 종료되면 자동으로 endIntro 실행
+        // 영상이 종료되면 자동으로 넘어감
         video.onended = function() {
             endIntro();
         };
-
-        // 클릭해도 넘어가는 UX 추가 (혹시 모를 상황 대비)
-        video.onclick = function() {
-            video.pause();
-            endIntro();
-        }
     </script>
 </body>
 </html>
