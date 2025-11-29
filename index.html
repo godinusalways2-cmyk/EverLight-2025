@@ -25,12 +25,49 @@
             margin: 0;
             padding: 0;
             line-height: 1.7;
+            overflow-x: hidden; /* 인트로 중 스크롤 방지 */
         }
+
+        /* --- 인트로 오버레이 스타일 --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease-out; /* 페이드 아웃 효과 */
+        }
+
+        #intro-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 화면 꽉 채우기 */
+        }
+
+        #skip-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+        }
+        /* --------------------------- */
 
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 60px 20px 100px;
+            opacity: 0; /* 처음에 숨겨둠 */
+            transition: opacity 1.5s ease-in;
         }
 
         /* Hero Header */
@@ -163,289 +200,328 @@
 </head>
 <body>
 
-    <header>
-        <div class="subtitle">2025 SPRING PROJECT</div>
-        <h1>EverLight</h1>
-        <div style="margin-top: 20px; font-size: 1.1rem; color: #ccc;">
-            영원한 생명의 빛 | The Narrative of Light
-        </div>
-    </header>
+    <div id="intro-overlay">
+        <video id="intro-video" autoplay muted playsinline>
+            <source src="opening.mp4" type="video/mp4">
+        </video>
+        <button id="skip-btn" onclick="endIntro()">Skip Intro ⏭</button>
+    </div>
 
-    <div class="container">
+    <div class="main-content-wrapper">
+        <header>
+            <div class="subtitle">2025 SPRING PROJECT</div>
+            <h1>EverLight</h1>
+            <div style="margin-top: 20px; font-size: 1.1rem; color: #ccc;">
+                영원한 생명의 빛 | The Narrative of Light
+            </div>
+        </header>
 
-        <section>
-            <h2>0. Background & Purpose</h2>
-            <div class="glass-card context-box">
-                <span class="context-title">기획 배경 및 신학적 의미 (Theological Context)</span>
-                <p class="highlight-text" style="display:inline-block; margin-bottom:15px;">"온기(Warmth)는 빛(Light)으로부터 옵니다."</p>
-                <p class="context-text">
-                    2025년 한 해 동안 우리는 전도축제를 통해 공동체의 '온기'를 전하기 위해 노력했습니다. 
-                    이제 그 온기의 근원이 되시는 <strong>'영원한 생명의 빛(EverLight)'</strong>이신 예수 그리스도를 조명하며 한 해를 매듭짓고자 합니다.
-                </p>
-                <p class="context-text">
-                    단순한 연말 행사가 아닌, 대림절 기간 동안 <strong>하늘의 빛이 우리 삶에 구체적으로 임재하고(Incarnation), 
-                    다시 세상을 향해 뻗어나가는(Expansion) 영적 여정</strong>을 경험하게 될 것입니다.
-                </p>
-                
+        <div class="container">
+
+            <section>
+                <h2>0. Background & Purpose</h2>
+                <div class="glass-card context-box">
+                    <span class="context-title">기획 배경 및 신학적 의미 (Theological Context)</span>
+                    <p class="highlight-text" style="display:inline-block; margin-bottom:15px;">"온기(Warmth)는 빛(Light)으로부터 옵니다."</p>
+                    <p class="context-text">
+                        2025년 한 해 동안 우리는 전도축제를 통해 공동체의 '온기'를 전하기 위해 노력했습니다. 
+                        이제 그 온기의 근원이 되시는 <strong>'영원한 생명의 빛(EverLight)'</strong>이신 예수 그리스도를 조명하며 한 해를 매듭짓고자 합니다.
+                    </p>
+                    <p class="context-text">
+                        단순한 연말 행사가 아닌, 대림절 기간 동안 <strong>하늘의 빛이 우리 삶에 구체적으로 임재하고(Incarnation), 
+                        다시 세상을 향해 뻗어나가는(Expansion) 영적 여정</strong>을 경험하게 될 것입니다.
+                    </p>
+                    
+                    <details>
+                        <summary>상세 기획 의도 및 기대 효과 보기</summary>
+                        <div class="detail-content">
+                            <strong>🎯 기획 목적 (Objectives)</strong>
+                            <ul>
+                                <li><strong>연결성:</strong> &lt;온기&gt; 프로젝트와 &lt;EverLight&gt;를 연결하여 사역의 연속성 확보.</li>
+                                <li><strong>격려:</strong> 1년간 전도를 위해 애쓴 청년들에게 '빛'을 선물하며 위로와 축복 제공.</li>
+                                <li><strong>복음 제시:</strong> 초청된 이들에게 예수 탄생의 의미를 감각적이고 직관적으로 전달.</li>
+                            </ul>
+                            <strong>💡 핵심 컨셉 (Concept Keywords)</strong>
+                            <ul>
+                                <li><strong>Vertical Gradient:</strong> 하늘(엄숙) → 땅(환희). 빛이 내려오는 수직적 흐름 시각화.</li>
+                                <li><strong>Sophisticated Hospitality:</strong> 세련되고 부담 없는 환대를 통한 마음 열기.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="glass-card" style="margin-top: 30px; padding: 25px;">
+                    <h3 style="color: var(--white-gold); margin: 0 0 20px 0; display: flex; align-items: center; gap: 10px;">
+                        📽️ 프로젝트 소개 영상 (Preview)
+                    </h3>
+                    <video controls playsinline width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); outline: 2px solid rgba(255,215,0,0.3);">
+                        <source src="main.mp4" type="video/mp4">
+                        브라우저가 비디오 태그를 지원하지 않습니다.
+                    </video>
+                    <p style="text-align: center; color: #aaa; font-size: 0.9rem; margin-top: 15px;">
+                        ※ 깃허브에 <code>main.mp4</code> 파일이 있어야 합니다.
+                    </p>
+                </div>
+            </section>
+            
+            <section>
+                <h2>1. The Flow : 빛의 여정</h2>
+                <div class="flow-grid">
+                    <div class="glass-card">
+                        <div class="flow-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <div class="flow-overlay">
+                                <span class="flow-date">11.30 (W1)</span>
+                                <div class="flow-title">The Promised Light</div>
+                                <div class="flow-kr">약속된 빛</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="flow-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <div class="flow-overlay">
+                                <span class="flow-date">12.07 (W2)</span>
+                                <div class="flow-title">The Coming Light</div>
+                                <div class="flow-kr">세상에 오신 빛</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="flow-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1602523961358-f9f03dd557db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <div class="flow-overlay">
+                                <span class="flow-date">12.14 (W3)</span>
+                                <div class="flow-title">The Indwelling Light</div>
+                                <div class="flow-kr">거하시는 빛</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card" style="border: 2px solid var(--gold);">
+                        <div class="flow-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1543589077-47d81606c1bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <div class="flow-overlay">
+                                <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
+                                <div class="flow-title">The Shining Light</div>
+                                <div class="flow-kr">비추는 빛</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <details>
-                    <summary>상세 기획 의도 및 기대 효과 보기</summary>
+                    <summary>주차별 설교 및 활동 상세 보기</summary>
                     <div class="detail-content">
-                        <strong>🎯 기획 목적 (Objectives)</strong>
                         <ul>
-                            <li><strong>연결성:</strong> &lt;온기&gt; 프로젝트와 &lt;EverLight&gt;를 연결하여 사역의 연속성 확보.</li>
-                            <li><strong>격려:</strong> 1년간 전도를 위해 애쓴 청년들에게 '빛'을 선물하며 위로와 축복 제공.</li>
-                            <li><strong>복음 제시:</strong> 초청된 이들에게 예수 탄생의 의미를 감각적이고 직관적으로 전달.</li>
-                        </ul>
-                        <strong>💡 핵심 컨셉 (Concept Keywords)</strong>
-                        <ul>
-                            <li><strong>Vertical Gradient:</strong> 하늘(엄숙) → 땅(환희). 빛이 내려오는 수직적 흐름 시각화.</li>
-                            <li><strong>Sophisticated Hospitality:</strong> 세련되고 부담 없는 환대를 통한 마음 열기.</li>
+                            <li><strong>1주차 (약속된 빛):</strong> 대림절 카드 배포. "어두움 속에 빛을 기다리는 마음" (설교: 두성광 목사)</li>
+                            <li><strong>2주차 (세상에 오신 빛):</strong> 공간 조명 및 현수막 연출 시작. 빛의 강림 시각화.</li>
+                            <li><strong>3주차 (거하시는 빛):</strong> 우리 안에 내주하시는 성령의 조명. 웰컴 라운지 리허설.</li>
+                            <li><strong>4주차 (비추는 빛):</strong> D-DAY 촛불예배. 세상으로 빛을 반사하는 삶의 결단.</li>
                         </ul>
                     </div>
                 </details>
-            </div>
+            </section>
 
-            <div class="glass-card" style="margin-top: 30px; padding: 25px;">
-                <h3 style="color: var(--white-gold); margin: 0 0 20px 0; display: flex; align-items: center; gap: 10px;">
-                    📽️ 프로젝트 소개 영상 (Preview)
-                </h3>
-                <video controls playsinline width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); outline: 2px solid rgba(255,215,0,0.3);">
-                    <source src="main.mp4" type="video/mp4">
-                    브라우저가 비디오 태그를 지원하지 않습니다.
-                </video>
-                <p style="text-align: center; color: #aaa; font-size: 0.9rem; margin-top: 15px;">
-                    ※ 깃허브에 <code>main.mp4</code> 파일을 업로드하신 후 잠시 기다려주세요. (최대 5~10분 소요)
-                </p>
-            </div>
-        </section>
-        
-        <section>
-            <h2>1. The Flow : 빛의 여정</h2>
-            <div class="flow-grid">
+            <section>
+                <h2>2. D-DAY Full Timeline (12.21)</h2>
                 <div class="glass-card">
-                    <div class="flow-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                        <div class="flow-overlay">
-                            <span class="flow-date">11.30 (W1)</span>
-                            <div class="flow-title">The Promised Light</div>
-                            <div class="flow-kr">약속된 빛</div>
+                    <table class="run-sheet">
+                        <thead>
+                            <tr><th colspan="3" style="font-size: 1.1rem; color: var(--white-gold);">PART 1. 예배 (The Worship)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="time-col">15:00 (01')</td>
+                                <td class="prog-col">Opening</td>
+                                <td class="desc-col">[Video] 온기 프로젝트 스케치 & 대림절 오프닝 (암전)</td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">15:01 (25')</td>
+                                <td class="prog-col">Worship</td>
+                                <td class="desc-col">경배와 찬양 (예수님의 오심, 밝고 웅장하게)</td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">15:27 (15')</td>
+                                <td class="prog-col">Message</td>
+                                <td class="desc-col">[Sermon] "The Shining Light" (두성광 목사)</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td class="time-col" style="color:var(--gold)">15:42 (18')</td>
+                                <td class="prog-col" style="color:var(--gold)">Ceremony</td>
+                                <td class="desc-col" style="color:#fff; font-weight:bold;">
+                                    ★ Candlelight (Peak Point)<br>
+                                    - 도넛링 캔들 점화 (빛의 확산)<br>
+                                    - 결단 찬양: "빛을 들고 세상으로"
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">16:00 (10')</td>
+                                <td class="prog-col">Closing</td>
+                                <td class="desc-col">광고 & 축도 (2부 활동 장소 및 선물 수령 안내)</td>
+                            </tr>
+                        </tbody>
+
+                        <thead>
+                            <tr><th colspan="3" style="padding-top:40px; font-size: 1.1rem; color: var(--white-gold);">PART 2. 활동 및 파송 (Activity & Outreach)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="time-col">16:15 ~</td>
+                                <td class="prog-col">Welcome & Class</td>
+                                <td class="desc-col">
+                                    <strong>A. 새가족 (New Comer)</strong><br>
+                                    4F 라운지 무인 선물 수령 → <strong>B1 교육실 이동 (2~4주차 과정)</strong><br>
+                                    <br>
+                                    <strong>B. 선택활동 (Activity Option)</strong><br>
+                                    원데이 클래스(캔들/키링), 소명 특강, 기존 셀모임
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">17:30 (30')</td>
+                                <td class="prog-col">Move</td>
+                                <td class="desc-col">신촌 명물거리로 이동 (다함께)</td>
+                            </tr>
+                            <tr style="background: linear-gradient(90deg, rgba(106, 13, 173, 0.2), transparent);">
+                                <td class="time-col" style="color:#fff;">18:00 ~</td>
+                                <td class="prog-col" style="color:var(--gold);">Spring Holy Night</td>
+                                <td class="desc-col">
+                                    <strong>🎸 거리 찬양 & 블레싱 (Outreach)</strong><br>
+                                    - 곡: 촛불하나, Light On, 저 들 밖에 한밤중에
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <details>
+                    <summary>운영 체크포인트 및 큐시트 상세</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li><strong>캔들 세리머니:</strong> "도넛링" 캔들 받침대 활용 (안전성 및 디자인 고려). 강대상에서 시작된 불이 회중석 전체로 퍼지는 시각적 효과 극대화.</li>
+                            <li><strong>이동 동선:</strong> 예배 종료 후 기존 청년들은 2부 활동 장소로, 새가족 안내팀은 4층 라운지로 신속하게 유도.</li>
+                            <li><strong>거리 찬양:</strong> 버스킹 형식으로 진행하되, 안전 요원 배치 및 시민 통행 방해 최소화.</li>
+                        </ul>
+                    </div>
+                </details>
+            </section>
+
+            <section>
+                <h2>3. 4F Welcome Lounge Map & Path</h2>
+                
+                <div class="space-grid">
+                    <div class="space-card">
+                        <div class="zone-header">
+                            <span class="zone-badge">Zone A</span>
+                            <span class="zone-icon">☕</span>
+                        </div>
+                        <div class="zone-name">Ordering Point</div>
+                        <div class="zone-desc">입구에 위치한 웰컴 데스크 (Cafe Concept)</div>
+                        <div class="action-point">
+                            <strong>Action & Detail</strong>
+                            "어서오세요, 어떤 음료 드릴까요?"<br>
+                            메뉴판 제공 및 웰컴 드링크 주문 접수
+                        </div>
+                    </div>
+
+                    <div class="space-card">
+                        <div class="zone-header">
+                            <span class="zone-badge">Zone B</span>
+                            <span class="zone-icon">🛋️</span>
+                        </div>
+                        <div class="zone-name">The Living Room</div>
+                        <div class="zone-desc">캠핑 의자와 소파가 있는 메인 라운지</div>
+                        <div class="action-point">
+                            <strong>Action & Detail</strong>
+                            편안하게 착석하여 음료 섭취<br>
+                            리더/스탭과 1:1 또는 1:다수 가벼운 아이스브레이킹
+                        </div>
+                    </div>
+
+                    <div class="space-card highlight">
+                        <div class="zone-header">
+                            <span class="zone-badge">Zone C</span>
+                            <span class="zone-icon">💐</span>
+                        </div>
+                        <div class="zone-name" style="color:var(--gold)">Gift Garden (Self)</div>
+                        <div class="zone-desc">나가는 길에 위치한 무인 선물 스테이션</div>
+                        <div class="action-point">
+                            <strong>Action & Detail</strong>
+                            "당신을 위한 빛과 꽃입니다"<br>
+                            안내 문구를 보고 직접 선물(꽃/카드)을 Pick
                         </div>
                     </div>
                 </div>
-                <div class="glass-card">
-                    <div class="flow-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                        <div class="flow-overlay">
-                            <span class="flow-date">12.07 (W2)</span>
-                            <div class="flow-title">The Coming Light</div>
-                            <div class="flow-kr">세상에 오신 빛</div>
+
+                <div class="path-box">
+                    <h3 style="margin:0 0 20px 0; color:var(--white-gold); border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                        👣 Hospitality Path (새가족 환대 동선)
+                    </h3>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <span class="step-num">1</span>
+                            <span class="step-title">입장 & 주문</span>
+                            <span class="step-desc">4층 도착,<br>Zone A에서 음료 주문</span>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-num">2</span>
+                            <span class="step-title">착석 & 교제</span>
+                            <span class="step-desc">Zone B 라운지 착석,<br>가벼운 아이스브레이킹</span>
+                        </div>
+                        <div class="path-step">
+                            <span class="step-num">3</span>
+                            <span class="step-title">선물 & 이동</span>
+                            <span class="step-desc">Zone C 무인 선물 Pick 후<br><strong>B1 교육실로 이동</strong></span>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card">
-                    <div class="flow-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1602523961358-f9f03dd557db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                        <div class="flow-overlay">
-                            <span class="flow-date">12.14 (W3)</span>
-                            <div class="flow-title">The Indwelling Light</div>
-                            <div class="flow-kr">거하시는 빛</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="glass-card" style="border: 2px solid var(--gold);">
-                    <div class="flow-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1543589077-47d81606c1bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
-                        <div class="flow-overlay">
-                            <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
-                            <div class="flow-title">The Shining Light</div>
-                            <div class="flow-kr">비추는 빛</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <details>
-                <summary>주차별 설교 및 활동 상세 보기</summary>
-                <div class="detail-content">
-                    <ul>
-                        <li><strong>1주차 (약속된 빛):</strong> 대림절 카드 배포. "어두움 속에 빛을 기다리는 마음" (설교: 두성광 목사)</li>
-                        <li><strong>2주차 (세상에 오신 빛):</strong> 공간 조명 및 현수막 연출 시작. 빛의 강림 시각화.</li>
-                        <li><strong>3주차 (거하시는 빛):</strong> 우리 안에 내주하시는 성령의 조명. 웰컴 라운지 리허설.</li>
-                        <li><strong>4주차 (비추는 빛):</strong> D-DAY 촛불예배. 세상으로 빛을 반사하는 삶의 결단.</li>
-                    </ul>
-                </div>
-            </details>
-        </section>
-
-        <section>
-            <h2>2. D-DAY Full Timeline (12.21)</h2>
-            <div class="glass-card">
-                <table class="run-sheet">
-                    <thead>
-                        <tr><th colspan="3" style="font-size: 1.1rem; color: var(--white-gold);">PART 1. 예배 (The Worship)</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="time-col">15:00 (01')</td>
-                            <td class="prog-col">Opening</td>
-                            <td class="desc-col">[Video] 온기 프로젝트 스케치 & 대림절 오프닝 (암전)</td>
-                        </tr>
-                        <tr>
-                            <td class="time-col">15:01 (25')</td>
-                            <td class="prog-col">Worship</td>
-                            <td class="desc-col">경배와 찬양 (예수님의 오심, 밝고 웅장하게)</td>
-                        </tr>
-                        <tr>
-                            <td class="time-col">15:27 (15')</td>
-                            <td class="prog-col">Message</td>
-                            <td class="desc-col">[Sermon] "The Shining Light" (두성광 목사)</td>
-                        </tr>
-                        <tr class="highlight-row">
-                            <td class="time-col" style="color:var(--gold)">15:42 (18')</td>
-                            <td class="prog-col" style="color:var(--gold)">Ceremony</td>
-                            <td class="desc-col" style="color:#fff; font-weight:bold;">
-                                ★ Candlelight (Peak Point)<br>
-                                - 도넛링 캔들 점화 (빛의 확산)<br>
-                                - 결단 찬양: "빛을 들고 세상으로"
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="time-col">16:00 (10')</td>
-                            <td class="prog-col">Closing</td>
-                            <td class="desc-col">광고 & 축도 (2부 활동 장소 및 선물 수령 안내)</td>
-                        </tr>
-                    </tbody>
-
-                    <thead>
-                        <tr><th colspan="3" style="padding-top:40px; font-size: 1.1rem; color: var(--white-gold);">PART 2. 활동 및 파송 (Activity & Outreach)</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="time-col">16:15 ~</td>
-                            <td class="prog-col">Welcome & Class</td>
-                            <td class="desc-col">
-                                <strong>A. 새가족 (New Comer)</strong><br>
-                                4F 라운지 무인 선물 수령 → <strong>B1 교육실 이동 (2~4주차 과정)</strong><br>
-                                <br>
-                                <strong>B. 선택활동 (Activity Option)</strong><br>
-                                원데이 클래스(캔들/키링), 소명 특강, 기존 셀모임
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="time-col">17:30 (30')</td>
-                            <td class="prog-col">Move</td>
-                            <td class="desc-col">신촌 명물거리로 이동 (다함께)</td>
-                        </tr>
-                        <tr style="background: linear-gradient(90deg, rgba(106, 13, 173, 0.2), transparent);">
-                            <td class="time-col" style="color:#fff;">18:00 ~</td>
-                            <td class="prog-col" style="color:var(--gold);">Spring Holy Night</td>
-                            <td class="desc-col">
-                                <strong>🎸 거리 찬양 & 블레싱 (Outreach)</strong><br>
-                                - 곡: 촛불하나, Light On, 저 들 밖에 한밤중에
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <details>
-                <summary>운영 체크포인트 및 큐시트 상세</summary>
-                <div class="detail-content">
-                    <ul>
-                        <li><strong>캔들 세리머니:</strong> "도넛링" 캔들 받침대 활용 (안전성 및 디자인 고려). 강대상에서 시작된 불이 회중석 전체로 퍼지는 시각적 효과 극대화.</li>
-                        <li><strong>이동 동선:</strong> 예배 종료 후 기존 청년들은 2부 활동 장소로, 새가족 안내팀은 4층 라운지로 신속하게 유도.</li>
-                        <li><strong>거리 찬양:</strong> 버스킹 형식으로 진행하되, 안전 요원 배치 및 시민 통행 방해 최소화.</li>
-                    </ul>
-                </div>
-            </details>
-        </section>
-
-        <section>
-            <h2>3. 4F Welcome Lounge Map & Path</h2>
-            
-            <div class="space-grid">
-                <div class="space-card">
-                    <div class="zone-header">
-                        <span class="zone-badge">Zone A</span>
-                        <span class="zone-icon">☕</span>
+                <details>
+                    <summary>4층 공간 기획 의도 (Why Sacred Cafe?)</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li><strong>카페 컨셉의 이유:</strong> 낯선 교회 공간에 대한 경계심을 허물고, '성수동 팝업스토어' 같은 트렌디하고 편안한 분위기를 제공하기 위함.</li>
+                            <li><strong>무인 선물(Gift Garden)의 이유:</strong> 등록을 강요하는 느낌을 주지 않고, 스스로 선물을 선택하게 함으로써 <strong>'능동적인 축복'</strong>을 경험하게 하기 위함. (심리적 안전감 확보)</li>
+                        </ul>
                     </div>
-                    <div class="zone-name">Ordering Point</div>
-                    <div class="zone-desc">입구에 위치한 웰컴 데스크 (Cafe Concept)</div>
-                    <div class="action-point">
-                        <strong>Action & Detail</strong>
-                        "어서오세요, 어떤 음료 드릴까요?"<br>
-                        메뉴판 제공 및 웰컴 드링크 주문 접수
-                    </div>
-                </div>
+                </details>
+            </section>
 
-                <div class="space-card">
-                    <div class="zone-header">
-                        <span class="zone-badge">Zone B</span>
-                        <span class="zone-icon">🛋️</span>
-                    </div>
-                    <div class="zone-name">The Living Room</div>
-                    <div class="zone-desc">캠핑 의자와 소파가 있는 메인 라운지</div>
-                    <div class="action-point">
-                        <strong>Action & Detail</strong>
-                        편안하게 착석하여 음료 섭취<br>
-                        리더/스탭과 1:1 또는 1:다수 가벼운 아이스브레이킹
-                    </div>
-                </div>
+            <footer>
+                <p>2025 SPRING WORSHIP COMMITTEE</p>
+                <p style="color: #666;">Project EverLight : Connecting Warmth to Eternal Light</p>
+            </footer>
 
-                <div class="space-card highlight">
-                    <div class="zone-header">
-                        <span class="zone-badge">Zone C</span>
-                        <span class="zone-icon">💐</span>
-                    </div>
-                    <div class="zone-name" style="color:var(--gold)">Gift Garden (Self)</div>
-                    <div class="zone-desc">나가는 길에 위치한 무인 선물 스테이션</div>
-                    <div class="action-point">
-                        <strong>Action & Detail</strong>
-                        "당신을 위한 빛과 꽃입니다"<br>
-                        안내 문구를 보고 직접 선물(꽃/카드)을 Pick
-                    </div>
-                </div>
-            </div>
-
-            <div class="path-box">
-                <h3 style="margin:0 0 20px 0; color:var(--white-gold); border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
-                    👣 Hospitality Path (새가족 환대 동선)
-                </h3>
-                <div class="path-steps">
-                    <div class="path-step">
-                        <span class="step-num">1</span>
-                        <span class="step-title">입장 & 주문</span>
-                        <span class="step-desc">4층 도착,<br>Zone A에서 음료 주문</span>
-                    </div>
-                    <div class="path-step">
-                        <span class="step-num">2</span>
-                        <span class="step-title">착석 & 교제</span>
-                        <span class="step-desc">Zone B 라운지 착석,<br>가벼운 아이스브레이킹</span>
-                    </div>
-                    <div class="path-step">
-                        <span class="step-num">3</span>
-                        <span class="step-title">선물 & 이동</span>
-                        <span class="step-desc">Zone C 무인 선물 Pick 후<br><strong>B1 교육실로 이동</strong></span>
-                    </div>
-                </div>
-            </div>
-
-            <details>
-                <summary>4층 공간 기획 의도 (Why Sacred Cafe?)</summary>
-                <div class="detail-content">
-                    <ul>
-                        <li><strong>카페 컨셉의 이유:</strong> 낯선 교회 공간에 대한 경계심을 허물고, '성수동 팝업스토어' 같은 트렌디하고 편안한 분위기를 제공하기 위함.</li>
-                        <li><strong>무인 선물(Gift Garden)의 이유:</strong> 등록을 강요하는 느낌을 주지 않고, 스스로 선물을 선택하게 함으로써 <strong>'능동적인 축복'</strong>을 경험하게 하기 위함. (심리적 안전감 확보)</li>
-                    </ul>
-                </div>
-            </details>
-        </section>
-
-        <footer>
-            <p>2025 SPRING WORSHIP COMMITTEE</p>
-            <p style="color: #666;">Project EverLight : Connecting Warmth to Eternal Light</p>
-        </footer>
-
+        </div>
     </div>
+
+    <script>
+        const overlay = document.getElementById('intro-overlay');
+        const video = document.getElementById('intro-video');
+        const container = document.querySelector('.container');
+
+        // 영상이 끝나면 실행되는 함수
+        function endIntro() {
+            // 오버레이 페이드 아웃
+            overlay.style.opacity = '0';
+            
+            // 1초 뒤에 완전히 화면에서 제거 및 메인 컨텐츠 표시
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                container.style.opacity = '1';
+                // 메인 컨텐츠 영상 재생 준비 (필요시)
+            }, 1000);
+        }
+
+        // 영상이 종료되면 자동으로 endIntro 실행
+        video.onended = function() {
+            endIntro();
+        };
+
+        // 클릭해도 넘어가는 UX 추가 (혹시 모를 상황 대비)
+        video.onclick = function() {
+            video.pause();
+            endIntro();
+        }
+    </script>
 </body>
 </html>
