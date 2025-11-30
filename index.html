@@ -28,156 +28,82 @@
             overflow-x: hidden;
         }
 
-        /* --- 인트로 오버레이 --- */
-        #intro-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1s ease-out;
+        /* --- 인트로 레이아웃 --- */
+        #intro-wrapper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
         }
-
-        #intro-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* 처음에 안 보이게 설정하되, 공간은 차지하게 함 (display:none 아님) */
-            position: absolute;
-            top: 0; left: 0;
-            opacity: 0; 
-            transition: opacity 0.5s;
+        #intro-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        #start-overlay {
+            position: absolute; z-index: 10; text-align: center;
+            background: rgba(0, 0, 0, 0.7); width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-
-        /* 시작 버튼 컨테이너 */
-        #start-container {
-            text-align: center;
-            z-index: 10001;
-            position: relative;
-        }
-
         #enter-btn {
-            background: rgba(0, 0, 0, 0.6);
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: var(--gold); color: #000; border: none; padding: 20px 50px;
+            font-size: 1.5rem; font-weight: 800; cursor: pointer; border-radius: 50px;
+            transition: transform 0.2s; box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); text-transform: uppercase;
         }
-
-        #enter-btn:hover {
-            background: var(--gold);
-            color: #000;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
-        }
-
+        #enter-btn:active { transform: scale(0.95); }
         #skip-btn {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 10px 20px;
-            border: 1px solid rgba(255,255,255,0.4);
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            backdrop-filter: blur(5px);
-            z-index: 10000;
-            display: none; /* 영상 시작하면 보임 */
-        }
-        /* --------------------------- */
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px 100px;
-            opacity: 0;
-            transition: opacity 1.5s ease-in;
+            position: absolute; bottom: 30px; right: 30px;
+            background: rgba(255, 255, 255, 0.2); color: #fff; padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.4); border-radius: 30px; cursor: pointer;
+            z-index: 20; backdrop-filter: blur(5px); display: none;
         }
 
-        /* Hero Header */
+        /* --- 세로 영상 모달 --- */
+        #vertical-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9); z-index: 10000;
+            display: none; justify-content: center; align-items: center;
+            flex-direction: column; cursor: pointer;
+        }
+        #vertical-video-player {
+            height: 80vh; max-width: 90vw; aspect-ratio: 9 / 16;
+            border-radius: 15px; box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); border: 2px solid var(--gold);
+            background: #000;
+        }
+        .modal-guide { color: #fff; margin-top: 15px; font-size: 0.9rem; animation: blink 2s infinite; }
+        @keyframes blink { 50% { opacity: 0.5; } }
+
+        /* --- 메인 스타일 --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px 100px; opacity: 0; transition: opacity 1.5s ease-in; }
         header {
-            text-align: center;
-            padding: 140px 20px 100px;
-            background: linear-gradient(rgba(26,0,36,0.7), rgba(26,0,36,0.9)), 
-                        url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'); 
-            background-size: cover;
-            background-position: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-align: center; padding: 140px 20px 100px;
+            background: linear-gradient(rgba(26,0,36,0.7), rgba(26,0,36,0.9)), url('stage_design.png'); 
+            background-size: cover; background-position: center; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-
         h1 {
-            font-size: 5rem;
-            font-weight: 800;
-            margin: 0;
+            font-size: 5rem; font-weight: 800; margin: 0;
             background: linear-gradient(to bottom, #ffffff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
-            line-height: 1.1;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); line-height: 1.1;
         }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: var(--purple-light);
-            margin-top: 20px;
-            font-weight: 300;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
+        .subtitle { font-size: 1.5rem; color: var(--purple-light); margin-top: 20px; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; }
         section { margin-bottom: 140px; }
-
         h2 {
-            font-size: 2.2rem;
-            margin-bottom: 40px;
-            color: var(--white-gold);
-            border-left: 5px solid var(--gold);
-            padding-left: 20px;
-            display: flex;
-            align-items: center;
+            font-size: 2.2rem; margin-bottom: 40px; color: var(--white-gold);
+            border-left: 5px solid var(--gold); padding-left: 20px; display: flex; align-items: center;
         }
-
         .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur-amount));
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            background: var(--glass-bg); backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; transition: all 0.3s ease;
         }
-
-        /* 0. Context Section */
+        
+        /* 0. Context */
         .context-box { padding: 40px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--gold); }
         .context-title { color: var(--gold); font-size: 1.2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
         .context-text { font-size: 1.05rem; color: #ddd; margin-bottom: 20px; }
         .highlight-text { color: #fff; font-weight: bold; background: linear-gradient(120deg, rgba(106, 13, 173, 0.5) 0%, rgba(106, 13, 173, 0.1) 100%); padding: 0 5px; }
 
-        /* Detail Toggle */
-        details { margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.2); }
-        summary { cursor: pointer; color: var(--gold); font-weight: bold; list-style: none; display: flex; align-items: center; gap: 10px; }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '▼'; font-size: 0.8rem; transition: transform 0.3s; }
-        details[open] summary::after { transform: rotate(180deg); }
-        .detail-content { margin-top: 15px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; color: #ccc; font-size: 0.95rem; line-height: 1.8; }
-        .detail-content strong { color: #fff; }
-        .detail-content ul { padding-left: 20px; margin: 10px 0; }
-
         /* 1. Flow Visuals */
         .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .flow-img-wrapper { height: 200px; overflow: hidden; position: relative; }
+        .flow-img-wrapper { height: 250px; overflow: hidden; position: relative; }
         .flow-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: brightness(0.8); }
         .glass-card:hover .flow-img { transform: scale(1.1); filter: brightness(1); }
-        .flow-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
+        .flow-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); }
         .flow-date { color: var(--gold); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px;}
         .flow-title { font-weight: bold; font-size: 1.4rem; color: #fff; line-height: 1.2; }
         .flow-kr { font-size: 1rem; color: #ccc; margin-top: 5px; font-weight: normal; }
@@ -197,8 +123,7 @@
         .space-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-bottom: 40px; }
         .space-card {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px; padding: 30px; transition: all 0.3s ease;
-            position: relative; overflow: hidden; display: flex; flex-direction: column;
+            border-radius: 16px; padding: 30px; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column;
         }
         .space-card:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-5px); border-color: var(--gold); }
         .space-card.highlight { border: 1px solid var(--gold); background: linear-gradient(145deg, rgba(255,215,0,0.05), rgba(0,0,0,0)); grid-column: span 2; }
@@ -210,7 +135,7 @@
         .action-point { font-size: 0.9rem; color: var(--white-gold); margin-top: auto; }
         .action-point strong { color: var(--gold); display: block; margin-bottom: 5px; }
 
-        /* Path Box */
+        /* Path Box & Footer */
         .path-box { background: rgba(0, 0, 0, 0.3); border: 1px dashed rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 30px; margin-top: 30px; }
         .path-steps { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
         .path-step { flex: 1; min-width: 150px; text-align: center; position: relative; }
@@ -219,8 +144,28 @@
         .step-num { display: inline-block; width: 30px; height: 30px; line-height: 30px; border-radius: 50%; background: var(--purple-mid); color: #fff; font-weight: bold; margin-bottom: 10px; }
         .step-title { display: block; font-weight: bold; margin-bottom: 5px; color: #fff; }
         .step-desc { font-size: 0.85rem; color: #aaa; }
-
         footer { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 50px; color: #888; font-size: 0.9rem; }
+
+        /* 버튼 스타일 */
+        .vertical-btn {
+            display: block; width: 100%; padding: 15px; margin-top: 15px;
+            background: linear-gradient(90deg, #ff0055, #ffcc00);
+            color: #fff; border: none; border-radius: 10px;
+            font-weight: bold; cursor: pointer; text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 0, 85, 0.3);
+            transition: transform 0.2s;
+        }
+        .vertical-btn:hover { transform: scale(1.02); }
+
+        /* Detail Toggle */
+        details { margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.2); }
+        summary { cursor: pointer; color: var(--gold); font-weight: bold; list-style: none; display: flex; align-items: center; gap: 10px; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '▼'; font-size: 0.8rem; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
+        .detail-content { margin-top: 15px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; color: #ccc; font-size: 0.95rem; line-height: 1.8; }
+        .detail-content strong { color: #fff; }
+        .detail-content ul { padding-left: 20px; margin: 10px 0; }
 
         @media (max-width: 768px) {
             h1 { font-size: 3.5rem; }
@@ -234,18 +179,23 @@
 </head>
 <body>
 
-    <div id="intro-overlay">
-        <div id="start-container">
-            <h1 style="font-size: 3rem; margin-bottom: 30px; text-shadow: 0 0 20px rgba(255,215,0,0.5);">EverLight</h1>
-            <button id="enter-btn" onclick="playIntro()">🔊 입장하기 (Enter)</button>
-            <p style="color: #aaa; margin-top: 20px;">Click to experience the narrative</p>
-        </div>
-
+    <div id="intro-wrapper">
         <video id="intro-video" playsinline>
             <source src="opening.mp4" type="video/mp4">
         </video>
-        
+        <div id="start-overlay">
+            <h1 style="font-size: 3.5rem; margin-bottom: 40px; text-shadow: 0 0 20px rgba(0,0,0,0.8);">EverLight</h1>
+            <button id="enter-btn" onclick="startExperience()">🔊 입장하기 (Enter)</button>
+            <p style="color: #ccc; margin-top: 20px; text-shadow: 0 0 5px #000;">* 소리와 함께 재생됩니다.</p>
+        </div>
         <button id="skip-btn" onclick="endIntro()">Skip Intro ⏭</button>
+    </div>
+
+    <div id="vertical-modal" onclick="closeVerticalVideo()">
+        <video id="vertical-video-player" playsinline>
+            <source src="main.mp4" type="video/mp4">
+        </video>
+        <p class="modal-guide">👆 화면을 클릭하면 닫힙니다 (Click to Close)</p>
     </div>
 
     <div class="main-content-wrapper">
@@ -262,46 +212,34 @@
             <section>
                 <h2>0. Background & Purpose</h2>
                 <div class="glass-card context-box">
-                    <span class="context-title">기획 배경 및 신학적 의미 (Theological Context)</span>
+                    <span class="context-title">기획 배경 (Context)</span>
                     <p class="highlight-text" style="display:inline-block; margin-bottom:15px;">"온기(Warmth)는 빛(Light)으로부터 옵니다."</p>
                     <p class="context-text">
-                        2025년 한 해 동안 우리는 전도축제를 통해 공동체의 '온기'를 전하기 위해 노력했습니다. 
-                        이제 그 온기의 근원이 되시는 <strong>'영원한 생명의 빛(EverLight)'</strong>이신 예수 그리스도를 조명하며 한 해를 매듭짓고자 합니다.
-                    </p>
-                    <p class="context-text">
-                        단순한 연말 행사가 아닌, 대림절 기간 동안 <strong>하늘의 빛이 우리 삶에 구체적으로 임재하고(Incarnation), 
-                        다시 세상을 향해 뻗어나가는(Expansion) 영적 여정</strong>을 경험하게 될 것입니다.
+                        2025년 한 해 &lt;온기&gt; 프로젝트의 완결판. 
+                        영원한 생명의 빛이신 예수 그리스도를 조명하며, 대림절 기간 하늘의 빛이 임재하고(Incarnation) 확장되는(Expansion) 여정을 그립니다.
                     </p>
                     
+                    <button class="vertical-btn" onclick="openVerticalVideo()">
+                        🎄 [Special] 세로 숏폼 영상 보기 (Click)
+                    </button>
+
                     <details>
-                        <summary>상세 기획 의도 및 기대 효과 보기</summary>
+                        <summary>상세 기획 의도 보기</summary>
                         <div class="detail-content">
-                            <strong>🎯 기획 목적 (Objectives)</strong>
+                            <strong>🎯 기획 목적</strong>
                             <ul>
-                                <li><strong>연결성:</strong> &lt;온기&gt; 프로젝트와 &lt;EverLight&gt;를 연결하여 사역의 연속성 확보.</li>
-                                <li><strong>격려:</strong> 1년간 전도를 위해 애쓴 청년들에게 '빛'을 선물하며 위로와 축복 제공.</li>
-                                <li><strong>복음 제시:</strong> 초청된 이들에게 예수 탄생의 의미를 감각적이고 직관적으로 전달.</li>
-                            </ul>
-                            <strong>💡 핵심 컨셉 (Concept Keywords)</strong>
-                            <ul>
-                                <li><strong>Vertical Gradient:</strong> 하늘(엄숙) → 땅(환희). 빛이 내려오는 수직적 흐름 시각화.</li>
-                                <li><strong>Sophisticated Hospitality:</strong> 세련되고 부담 없는 환대를 통한 마음 열기.</li>
+                                <li><strong>연결성:</strong> &lt;온기&gt; 프로젝트와 연결하여 사역의 연속성 확보.</li>
+                                <li><strong>격려:</strong> 전도를 위해 애쓴 청년들에게 위로와 축복 제공.</li>
                             </ul>
                         </div>
                     </details>
                 </div>
 
                 <div class="glass-card" style="margin-top: 30px; padding: 25px;">
-                    <h3 style="color: var(--white-gold); margin: 0 0 20px 0; display: flex; align-items: center; gap: 10px;">
-                        📽️ 프로젝트 소개 영상 (Preview)
-                    </h3>
-                    <video controls playsinline width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); outline: 2px solid rgba(255,215,0,0.3);">
+                    <h3 style="color: var(--white-gold); margin: 0 0 20px 0;">📽️ 프로젝트 소개 영상</h3>
+                    <video controls playsinline width="100%" style="border-radius: 12px; outline: 2px solid rgba(255,215,0,0.3);">
                         <source src="main.mp4" type="video/mp4">
-                        브라우저가 비디오 태그를 지원하지 않습니다.
                     </video>
-                    <p style="text-align: center; color: #aaa; font-size: 0.9rem; margin-top: 15px;">
-                        ※ 깃허브에 <code>main.mp4</code> 파일이 있어야 합니다.
-                    </p>
                 </div>
             </section>
             
@@ -320,44 +258,43 @@
                     </div>
                     <div class="glass-card">
                         <div class="flow-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <img src="postcard.png" class="flow-img">
                             <div class="flow-overlay">
                                 <span class="flow-date">12.07 (W2)</span>
                                 <div class="flow-title">The Coming Light</div>
-                                <div class="flow-kr">세상에 오신 빛</div>
+                                <div class="flow-kr">세상에 오신 빛 (엽서 배부)</div>
                             </div>
                         </div>
                     </div>
                     <div class="glass-card">
                         <div class="flow-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1602523961358-f9f03dd557db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <img src="qr_playlist.jpg" class="flow-img" style="object-fit: contain; background: #000;">
                             <div class="flow-overlay">
                                 <span class="flow-date">12.14 (W3)</span>
                                 <div class="flow-title">The Indwelling Light</div>
-                                <div class="flow-kr">거하시는 빛</div>
+                                <div class="flow-kr">거하시는 빛 (QR Playlist)</div>
                             </div>
                         </div>
                     </div>
                     <div class="glass-card" style="border: 2px solid var(--gold);">
                         <div class="flow-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1543589077-47d81606c1bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <img src="stage_design.png" class="flow-img">
                             <div class="flow-overlay">
                                 <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
                                 <div class="flow-title">The Shining Light</div>
-                                <div class="flow-kr">비추는 빛</div>
+                                <div class="flow-kr">비추는 빛 (Stage Design)</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <details>
-                    <summary>주차별 설교 및 활동 상세 보기</summary>
+                    <summary>주차별 Action Plan 상세 보기</summary>
                     <div class="detail-content">
                         <ul>
-                            <li><strong>1주차 (약속된 빛):</strong> 대림절 카드 배포. "어두움 속에 빛을 기다리는 마음" (설교: 두성광 목사)</li>
-                            <li><strong>2주차 (세상에 오신 빛):</strong> 공간 조명 및 현수막 연출 시작. 빛의 강림 시각화.</li>
-                            <li><strong>3주차 (거하시는 빛):</strong> 우리 안에 내주하시는 성령의 조명. 웰컴 라운지 리허설.</li>
-                            <li><strong>4주차 (비추는 빛):</strong> D-DAY 촛불예배. 세상으로 빛을 반사하는 삶의 결단.</li>
+                            <li><strong>2주차 (12.07):</strong> 대림절 엽서 배포 (이미지 참조). 성도들에게 빛을 기다리는 마음 공유.</li>
+                            <li><strong>3주차 (12.14):</strong> QR 코드 플레이리스트 공유. 일상 속에서 듣는 빛의 노래.</li>
+                            <li><strong>4주차 (12.21):</strong> D-DAY 무대 디자인(현수막) 적용. 빛의 강림 시각화.</li>
                         </ul>
                     </div>
                 </details>
@@ -374,12 +311,7 @@
                             <tr>
                                 <td class="time-col">15:00 (01')</td>
                                 <td class="prog-col">Opening</td>
-                                <td class="desc-col">[Video] 온기 프로젝트 스케치 & 대림절 오프닝 (암전)</td>
-                            </tr>
-                            <tr>
-                                <td class="time-col">15:01 (25')</td>
-                                <td class="prog-col">Worship</td>
-                                <td class="desc-col">경배와 찬양 (예수님의 오심, 밝고 웅장하게)</td>
+                                <td class="desc-col">온기 프로젝트 스케치 & 대림절 오프닝 (암전)</td>
                             </tr>
                             <tr>
                                 <td class="time-col">15:27 (15')</td>
@@ -391,59 +323,30 @@
                                 <td class="prog-col" style="color:var(--gold)">Ceremony</td>
                                 <td class="desc-col" style="color:#fff; font-weight:bold;">
                                     ★ Candlelight (Peak Point)<br>
-                                    - 도넛링 캔들 점화 (빛의 확산)<br>
-                                    - 결단 찬양: "빛을 들고 세상으로"
+                                    도넛링 캔들 점화 & 결단 찬양 "빛을 들고 세상으로"
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="time-col">16:00 (10')</td>
-                                <td class="prog-col">Closing</td>
-                                <td class="desc-col">광고 & 축도 (2부 활동 장소 및 선물 수령 안내)</td>
-                            </tr>
                         </tbody>
-
                         <thead>
-                            <tr><th colspan="3" style="padding-top:40px; font-size: 1.1rem; color: var(--white-gold);">PART 2. 활동 및 파송 (Activity & Outreach)</th></tr>
+                            <tr><th colspan="3" style="padding-top:40px; font-size: 1.1rem; color: var(--white-gold);">PART 2. 활동 및 파송</th></tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="time-col">16:15 ~</td>
-                                <td class="prog-col">Welcome & Class</td>
+                                <td class="prog-col">Activity</td>
                                 <td class="desc-col">
-                                    <strong>A. 새가족 (New Comer)</strong><br>
-                                    4F 라운지 무인 선물 수령 → <strong>B1 교육실 이동 (2~4주차 과정)</strong><br>
-                                    <br>
-                                    <strong>B. 선택활동 (Activity Option)</strong><br>
-                                    원데이 클래스(캔들/키링), 소명 특강, 기존 셀모임
+                                    A. 새가족: 4F 선물 수령 → B1 교육실<br>
+                                    B. 선택활동: 캔들/키링/특강/셀모임
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="time-col">17:30 (30')</td>
-                                <td class="prog-col">Move</td>
-                                <td class="desc-col">신촌 명물거리로 이동 (다함께)</td>
                             </tr>
                             <tr style="background: linear-gradient(90deg, rgba(106, 13, 173, 0.2), transparent);">
                                 <td class="time-col" style="color:#fff;">18:00 ~</td>
-                                <td class="prog-col" style="color:var(--gold);">Spring Holy Night</td>
-                                <td class="desc-col">
-                                    <strong>🎸 거리 찬양 & 블레싱 (Outreach)</strong><br>
-                                    - 곡: 촛불하나, Light On, 저 들 밖에 한밤중에
-                                </td>
+                                <td class="prog-col" style="color:var(--gold);">Outreach</td>
+                                <td class="desc-col">🎸 신촌 거리 찬양 & 블레싱</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <details>
-                    <summary>운영 체크포인트 및 큐시트 상세</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li><strong>캔들 세리머니:</strong> "도넛링" 캔들 받침대 활용 (안전성 및 디자인 고려). 강대상에서 시작된 불이 회중석 전체로 퍼지는 시각적 효과 극대화.</li>
-                            <li><strong>이동 동선:</strong> 예배 종료 후 기존 청년들은 2부 활동 장소로, 새가족 안내팀은 4층 라운지로 신속하게 유도.</li>
-                            <li><strong>거리 찬양:</strong> 버스킹 형식으로 진행하되, 안전 요원 배치 및 시민 통행 방해 최소화.</li>
-                        </ul>
-                    </div>
-                </details>
             </section>
 
             <section>
@@ -451,80 +354,37 @@
                 
                 <div class="space-grid">
                     <div class="space-card">
-                        <div class="zone-header">
-                            <span class="zone-badge">Zone A</span>
-                            <span class="zone-icon">☕</span>
-                        </div>
+                        <div class="zone-header"><span class="zone-badge">Zone A</span><span class="zone-icon">☕</span></div>
                         <div class="zone-name">Ordering Point</div>
-                        <div class="zone-desc">입구에 위치한 웰컴 데스크 (Cafe Concept)</div>
-                        <div class="action-point">
-                            <strong>Action & Detail</strong>
-                            "어서오세요, 어떤 음료 드릴까요?"<br>
-                            메뉴판 제공 및 웰컴 드링크 주문 접수
-                        </div>
+                        <div class="action-point"><strong>Action</strong>메뉴판 제공 및 주문 접수</div>
                     </div>
-
                     <div class="space-card">
-                        <div class="zone-header">
-                            <span class="zone-badge">Zone B</span>
-                            <span class="zone-icon">🛋️</span>
-                        </div>
+                        <div class="zone-header"><span class="zone-badge">Zone B</span><span class="zone-icon">🛋️</span></div>
                         <div class="zone-name">The Living Room</div>
-                        <div class="zone-desc">캠핑 의자와 소파가 있는 메인 라운지</div>
-                        <div class="action-point">
-                            <strong>Action & Detail</strong>
-                            편안하게 착석하여 음료 섭취<br>
-                            리더/스탭과 1:1 또는 1:다수 가벼운 아이스브레이킹
-                        </div>
+                        <div class="action-point"><strong>Action</strong>편안한 착석 및 아이스브레이킹</div>
                     </div>
-
                     <div class="space-card highlight">
-                        <div class="zone-header">
-                            <span class="zone-badge">Zone C</span>
-                            <span class="zone-icon">💐</span>
-                        </div>
-                        <div class="zone-name" style="color:var(--gold)">Gift Garden (Self)</div>
-                        <div class="zone-desc">나가는 길에 위치한 무인 선물 스테이션</div>
+                        <div class="zone-header"><span class="zone-badge">Zone C</span><span class="zone-icon">💐</span></div>
+                        <div class="zone-name" style="color:var(--gold)">Gift Garden (Playlist)</div>
+                        <div class="zone-desc">무인 선물 스테이션 + QR 플레이리스트 제공</div>
                         <div class="action-point">
                             <strong>Action & Detail</strong>
-                            "당신을 위한 빛과 꽃입니다"<br>
-                            안내 문구를 보고 직접 선물(꽃/카드)을 Pick
+                            "당신을 위한 빛의 노래와 꽃입니다"<br>
+                            직접 선물(꽃/카드/QR음악)을 Pick 하여 감동 전달
                         </div>
                     </div>
                 </div>
 
                 <div class="path-box">
                     <h3 style="margin:0 0 20px 0; color:var(--white-gold); border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
-                        👣 Hospitality Path (새가족 환대 동선)
+                        👣 Hospitality Path
                     </h3>
                     <div class="path-steps">
-                        <div class="path-step">
-                            <span class="step-num">1</span>
-                            <span class="step-title">입장 & 주문</span>
-                            <span class="step-desc">4층 도착,<br>Zone A에서 음료 주문</span>
-                        </div>
-                        <div class="path-step">
-                            <span class="step-num">2</span>
-                            <span class="step-title">착석 & 교제</span>
-                            <span class="step-desc">Zone B 라운지 착석,<br>가벼운 아이스브레이킹</span>
-                        </div>
-                        <div class="path-step">
-                            <span class="step-num">3</span>
-                            <span class="step-title">선물 & 이동</span>
-                            <span class="step-desc">Zone C 무인 선물 Pick 후<br><strong>B1 교육실로 이동</strong></span>
-                        </div>
+                        <div class="path-step"><span class="step-num">1</span><span class="step-title">입장/주문</span><span class="step-desc">Zone A</span></div>
+                        <div class="path-step"><span class="step-num">2</span><span class="step-title">착석/교제</span><span class="step-desc">Zone B</span></div>
+                        <div class="path-step"><span class="step-num">3</span><span class="step-title">선물/이동</span><span class="step-desc">Zone C → B1 교육실</span></div>
                     </div>
                 </div>
-
-                <details>
-                    <summary>4층 공간 기획 의도 (Why Sacred Cafe?)</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li><strong>카페 컨셉의 이유:</strong> 낯선 교회 공간에 대한 경계심을 허물고, '성수동 팝업스토어' 같은 트렌디하고 편안한 분위기를 제공하기 위함.</li>
-                            <li><strong>무인 선물(Gift Garden)의 이유:</strong> 등록을 강요하는 느낌을 주지 않고, 스스로 선물을 선택하게 함으로써 <strong>'능동적인 축복'</strong>을 경험하게 하기 위함. (심리적 안전감 확보)</li>
-                        </ul>
-                    </div>
-                </details>
             </section>
 
             <footer>
@@ -536,54 +396,40 @@
     </div>
 
     <script>
-        const overlay = document.getElementById('intro-overlay');
-        const startContainer = document.getElementById('start-container');
-        const video = document.getElementById('intro-video');
+        // 1. 인트로 영상 로직
+        const wrapper = document.getElementById('intro-wrapper');
+        const overlay = document.getElementById('start-overlay');
+        const introVideo = document.getElementById('intro-video');
         const skipBtn = document.getElementById('skip-btn');
         const container = document.querySelector('.container');
 
-        function playIntro() {
-            // UI 변경: 버튼 숨기고 영상 드러내기
-            startContainer.style.display = 'none';
-            video.style.opacity = '1'; 
+        function startExperience() {
+            overlay.style.display = 'none';
             skipBtn.style.display = 'block';
-
-            // 소리 설정 (가장 중요)
-            video.muted = false; // 음소거 해제
-            video.volume = 1.0;  // 볼륨 최대
-
-            // 재생 시도 (Promise 패턴 사용)
-            var playPromise = video.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // 자동재생 성공
-                    console.log("Audio Playback Started");
-                })
-                .catch(error => {
-                    // 브라우저가 막았을 경우 (예외처리)
-                    console.log("Autoplay was prevented. Fallback to muted.");
-                    video.muted = true;
-                    video.play();
-                });
-            }
+            introVideo.muted = false; introVideo.volume = 1.0; introVideo.currentTime = 0;
+            introVideo.play().catch(error => {
+                alert("화면을 한번 더 터치해주세요."); introVideo.muted = true; introVideo.play();
+            });
         }
-
-        // 영상이 끝나면 메인 화면으로 전환
         function endIntro() {
-            overlay.style.opacity = '0';
-            
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                container.style.opacity = '1';
-                // 혹시 모르니 영상 정지 및 리소스 해제
-                video.pause();
-            }, 1000);
+            wrapper.style.opacity = '0';
+            setTimeout(() => { wrapper.style.display = 'none'; container.style.opacity = '1'; introVideo.pause(); }, 1000);
         }
+        introVideo.onended = endIntro;
 
-        video.onended = function() {
-            endIntro();
-        };
+        // 2. 세로 영상 모달 로직
+        const vModal = document.getElementById('vertical-modal');
+        const vPlayer = document.getElementById('vertical-video-player');
+
+        function openVerticalVideo() {
+            vModal.style.display = 'flex';
+            vPlayer.currentTime = 0;
+            vPlayer.play();
+        }
+        function closeVerticalVideo() {
+            vModal.style.display = 'none';
+            vPlayer.pause();
+        }
     </script>
 </body>
 </html>
