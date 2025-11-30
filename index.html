@@ -65,6 +65,25 @@
             border-radius: 15px; box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); border: 2px solid var(--gold);
             background: #000;
         }
+
+        /* --- 이미지 확대 모달 (New) --- */
+        #image-modal {
+            display: none; /* Hidden by default */
+            position: fixed; z-index: 20000; /* 최상단 */
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.95); /* 배경 어둡게 */
+            justify-content: center; align-items: center; flex-direction: column;
+            cursor: zoom-out; /* 닫기 커서 */
+        }
+        #expanded-image {
+            margin: auto; display: block;
+            max-width: 90%; max-height: 90%;
+            border: 2px solid var(--gold); border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+            animation: zoom 0.3s;
+        }
+        @keyframes zoom { from {transform:scale(0.8); opacity:0;} to {transform:scale(1); opacity:1;} }
+        
         .modal-guide { color: #fff; margin-top: 15px; font-size: 0.9rem; animation: blink 2s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
@@ -101,9 +120,16 @@
         /* 1. Flow Visuals */
         .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
         .flow-img-wrapper { height: 250px; overflow: hidden; position: relative; }
-        .flow-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: brightness(0.8); }
+        
+        /* 이미지 클릭 스타일 추가 */
+        .flow-img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: 0.5s; filter: brightness(0.8);
+            cursor: zoom-in; /* 커서 변경 */
+        }
+        
         .glass-card:hover .flow-img { transform: scale(1.1); filter: brightness(1); }
-        .flow-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); }
+        .flow-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); pointer-events: none; /* 오버레이가 클릭 방해 안하게 */ }
         .flow-date { color: var(--gold); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px;}
         .flow-title { font-weight: bold; font-size: 1.4rem; color: #fff; line-height: 1.2; }
         .flow-kr { font-size: 1rem; color: #ccc; margin-top: 5px; font-weight: normal; }
@@ -198,6 +224,11 @@
         <p class="modal-guide">👆 화면을 클릭하면 닫힙니다 (Click to Close)</p>
     </div>
 
+    <div id="image-modal" onclick="closeImageModal()">
+        <img id="expanded-image">
+        <p class="modal-guide">👆 화면을 클릭하면 닫힙니다 (Click to Close)</p>
+    </div>
+
     <div class="main-content-wrapper">
         <header>
             <div class="subtitle">2025 SPRING PROJECT</div>
@@ -248,7 +279,7 @@
                 <div class="flow-grid">
                     <div class="glass-card">
                         <div class="flow-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img">
+                            <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img" onclick="expandImage(this.src)">
                             <div class="flow-overlay">
                                 <span class="flow-date">11.30 (W1)</span>
                                 <div class="flow-title">The Promised Light</div>
@@ -258,7 +289,7 @@
                     </div>
                     <div class="glass-card">
                         <div class="flow-img-wrapper">
-                            <img src="postcard.png" class="flow-img">
+                            <img src="postcard.png" class="flow-img" onclick="expandImage(this.src)">
                             <div class="flow-overlay">
                                 <span class="flow-date">12.07 (W2)</span>
                                 <div class="flow-title">The Coming Light</div>
@@ -268,7 +299,7 @@
                     </div>
                     <div class="glass-card">
                         <div class="flow-img-wrapper">
-                            <img src="qr_playlist.jpg" class="flow-img" style="object-fit: contain; background: #000;">
+                            <img src="qr_playlist.jpg" class="flow-img" style="object-fit: contain; background: #000;" onclick="expandImage(this.src)">
                             <div class="flow-overlay">
                                 <span class="flow-date">12.14 (W3)</span>
                                 <div class="flow-title">The Indwelling Light</div>
@@ -278,7 +309,7 @@
                     </div>
                     <div class="glass-card" style="border: 2px solid var(--gold);">
                         <div class="flow-img-wrapper">
-                            <img src="stage_design.png" class="flow-img">
+                            <img src="stage_design.png" class="flow-img" onclick="expandImage(this.src)">
                             <div class="flow-overlay">
                                 <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
                                 <div class="flow-title">The Shining Light</div>
@@ -294,7 +325,7 @@
                         <ul>
                             <li><strong>2주차 (12.07):</strong> 대림절 엽서 배포 (이미지 참조). 성도들에게 빛을 기다리는 마음 공유.</li>
                             <li><strong>3주차 (12.14):</strong> QR 코드 플레이리스트 공유. 일상 속에서 듣는 빛의 노래.</li>
-                            <li><strong>4주차 (12.21):</strong> D-DAY 무대 디자인(현수막) 적용. 빛의 강림 시각화.</li>
+                            <li><strong>4주차 (12.21):</strong> D-DAY 무대 디자인 적용. 빛의 강림 시각화.</li>
                         </ul>
                     </div>
                 </details>
@@ -429,6 +460,18 @@
         function closeVerticalVideo() {
             vModal.style.display = 'none';
             vPlayer.pause();
+        }
+
+        // 3. 이미지 확대 모달 로직 (New)
+        const imgModal = document.getElementById('image-modal');
+        const expandedImg = document.getElementById('expanded-image');
+
+        function expandImage(src) {
+            imgModal.style.display = 'flex';
+            expandedImg.src = src;
+        }
+        function closeImageModal() {
+            imgModal.style.display = 'none';
         }
     </script>
 </body>
