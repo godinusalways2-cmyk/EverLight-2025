@@ -66,21 +66,18 @@
             background: #000;
         }
 
-        /* --- 이미지 확대 모달 (New) --- */
+        /* --- 이미지 확대 모달 --- */
         #image-modal {
-            display: none; /* Hidden by default */
-            position: fixed; z-index: 20000; /* 최상단 */
+            display: none; position: fixed; z-index: 20000;
             left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.95); /* 배경 어둡게 */
+            background-color: rgba(0,0,0,0.95);
             justify-content: center; align-items: center; flex-direction: column;
-            cursor: zoom-out; /* 닫기 커서 */
+            cursor: zoom-out;
         }
         #expanded-image {
-            margin: auto; display: block;
-            max-width: 90%; max-height: 90%;
+            margin: auto; display: block; max-width: 90%; max-height: 90%;
             border: 2px solid var(--gold); border-radius: 10px;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
-            animation: zoom 0.3s;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2); animation: zoom 0.3s;
         }
         @keyframes zoom { from {transform:scale(0.8); opacity:0;} to {transform:scale(1); opacity:1;} }
         
@@ -120,23 +117,16 @@
         /* 1. Flow Visuals */
         .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
         .flow-img-wrapper { height: 250px; overflow: hidden; position: relative; }
-        
-        /* 이미지 클릭 스타일 추가 */
-        .flow-img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            transition: 0.5s; filter: brightness(0.8);
-            cursor: zoom-in; /* 커서 변경 */
-        }
-        
+        .flow-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: brightness(0.8); cursor: zoom-in; }
         .glass-card:hover .flow-img { transform: scale(1.1); filter: brightness(1); }
-        .flow-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); pointer-events: none; /* 오버레이가 클릭 방해 안하게 */ }
+        .flow-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); pointer-events: none; }
         .flow-date { color: var(--gold); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px;}
         .flow-title { font-weight: bold; font-size: 1.4rem; color: #fff; line-height: 1.2; }
         .flow-kr { font-size: 1rem; color: #ccc; margin-top: 5px; font-weight: normal; }
 
         /* 2. Timeline */
         .run-sheet { width: 100%; border-collapse: collapse; color: #fff; }
-        .run-sheet th, .run-sheet td { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; vertical-align: top; }
+        .run-sheet th, .run-sheet td { padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; vertical-align: top; }
         .run-sheet th { background: rgba(0,0,0,0.3); color: var(--gold); font-weight: bold; }
         .time-col { width: 15%; font-weight: bold; color: var(--purple-light); }
         .prog-col { width: 25%; font-weight: bold; }
@@ -265,13 +255,6 @@
                         </div>
                     </details>
                 </div>
-
-                <div class="glass-card" style="margin-top: 30px; padding: 25px;">
-                    <h3 style="color: var(--white-gold); margin: 0 0 20px 0;">📽️ 프로젝트 소개 영상</h3>
-                    <video controls playsinline width="100%" style="border-radius: 12px; outline: 2px solid rgba(255,215,0,0.3);">
-                        <source src="main.mp4" type="video/mp4">
-                    </video>
-                </div>
             </section>
             
             <section>
@@ -340,9 +323,24 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td class="time-col">14:50 (10')</td>
+                                <td class="prog-col">Pre-Service</td>
+                                <td class="desc-col">기획의도 카드 배포 & 무드 조성 (BGM: Pad)</td>
+                            </tr>
+                            <tr>
                                 <td class="time-col">15:00 (01')</td>
                                 <td class="prog-col">Opening</td>
                                 <td class="desc-col">온기 프로젝트 스케치 & 대림절 오프닝 (암전)</td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">15:01 (25')</td>
+                                <td class="prog-col">Worship</td>
+                                <td class="desc-col">[Praise] 경배와 찬양 (예수님의 오심, 밝고 웅장하게)</td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">15:26 (1.5')</td>
+                                <td class="prog-col">Bridge</td>
+                                <td class="desc-col">[Video] 설교 연결 브릿지 영상</td>
                             </tr>
                             <tr>
                                 <td class="time-col">15:27 (15')</td>
@@ -357,23 +355,46 @@
                                     도넛링 캔들 점화 & 결단 찬양 "빛을 들고 세상으로"
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="time-col">16:00 (02')</td>
+                                <td class="prog-col">Benediction</td>
+                                <td class="desc-col">축도 (Closing Prayer)</td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">16:02 (08')</td>
+                                <td class="prog-col">Ads</td>
+                                <td class="desc-col">[Video] 광고 및 2부 활동 장소/선물 수령 안내</td>
+                            </tr>
+                            <tr>
+                                <td class="time-col">16:10</td>
+                                <td class="prog-col">Break</td>
+                                <td class="desc-col">퇴장 및 이동 (BGM: Up-tempo Carol)</td>
+                            </tr>
                         </tbody>
                         <thead>
                             <tr><th colspan="3" style="padding-top:40px; font-size: 1.1rem; color: var(--white-gold);">PART 2. 활동 및 파송</th></tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="time-col">16:15 ~</td>
+                                <td class="time-col">16:15 (75')</td>
                                 <td class="prog-col">Activity</td>
                                 <td class="desc-col">
-                                    A. 새가족: 4F 선물 수령 → B1 교육실<br>
-                                    B. 선택활동: 캔들/키링/특강/셀모임
+                                    <strong>A. 새가족:</strong> 4F 선물 수령 → B1 교육실<br>
+                                    <strong>B. 선택활동:</strong> 캔들/키링/특강/셀모임
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="time-col">17:30 (30')</td>
+                                <td class="prog-col">Move</td>
+                                <td class="desc-col">신촌 명물거리로 이동 (다함께)</td>
+                            </tr>
                             <tr style="background: linear-gradient(90deg, rgba(106, 13, 173, 0.2), transparent);">
-                                <td class="time-col" style="color:#fff;">18:00 ~</td>
+                                <td class="time-col" style="color:#fff;">18:00 (30')</td>
                                 <td class="prog-col" style="color:var(--gold);">Outreach</td>
-                                <td class="desc-col">🎸 신촌 거리 찬양 & 블레싱</td>
+                                <td class="desc-col">
+                                    <strong>[Spring Holy Night]</strong><br>
+                                    🎸 신촌 거리 찬양 & 블레싱
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -462,7 +483,7 @@
             vPlayer.pause();
         }
 
-        // 3. 이미지 확대 모달 로직 (New)
+        // 3. 이미지 확대 모달 로직
         const imgModal = document.getElementById('image-modal');
         const expandedImg = document.getElementById('expanded-image');
 
