@@ -53,19 +53,6 @@
             z-index: 20; backdrop-filter: blur(5px); display: none;
         }
 
-        /* --- 세로 영상 모달 --- */
-        #vertical-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9); z-index: 10000;
-            display: none; justify-content: center; align-items: center;
-            flex-direction: column; cursor: pointer;
-        }
-        #vertical-video-player {
-            height: 80vh; max-width: 90vw; aspect-ratio: 9 / 16;
-            border-radius: 15px; box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); border: 2px solid var(--gold);
-            background: #000;
-        }
-
         /* --- 이미지 확대 모달 --- */
         #image-modal {
             display: none; position: fixed; z-index: 20000;
@@ -151,6 +138,14 @@
         .action-point { font-size: 0.9rem; color: var(--white-gold); margin-top: auto; }
         .action-point strong { color: var(--gold); display: block; margin-bottom: 5px; }
 
+        /* Lounge Image */
+        .lounge-img-wrapper { 
+            width: 100%; height: 300px; border-radius: 12px; overflow: hidden; 
+            margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.2);
+        }
+        .lounge-img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; transition: transform 0.5s; }
+        .lounge-img:hover { transform: scale(1.05); }
+
         /* Path Box & Footer */
         .path-box { background: rgba(0, 0, 0, 0.3); border: 1px dashed rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 30px; margin-top: 30px; }
         .path-steps { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px; }
@@ -161,17 +156,6 @@
         .step-title { display: block; font-weight: bold; margin-bottom: 5px; color: #fff; }
         .step-desc { font-size: 0.85rem; color: #aaa; }
         footer { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 50px; color: #888; font-size: 0.9rem; }
-
-        /* 버튼 스타일 */
-        .vertical-btn {
-            display: block; width: 100%; padding: 15px; margin-top: 15px;
-            background: linear-gradient(90deg, #ff0055, #ffcc00);
-            color: #fff; border: none; border-radius: 10px;
-            font-weight: bold; cursor: pointer; text-align: center;
-            box-shadow: 0 5px 15px rgba(255, 0, 85, 0.3);
-            transition: transform 0.2s;
-        }
-        .vertical-btn:hover { transform: scale(1.02); }
 
         /* Detail Toggle */
         details { margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.2); }
@@ -207,13 +191,6 @@
         <button id="skip-btn" onclick="endIntro()">Skip Intro ⏭</button>
     </div>
 
-    <div id="vertical-modal" onclick="closeVerticalVideo()">
-        <video id="vertical-video-player" playsinline>
-            <source src="main.mp4" type="video/mp4">
-        </video>
-        <p class="modal-guide">👆 화면을 클릭하면 닫힙니다 (Click to Close)</p>
-    </div>
-
     <div id="image-modal" onclick="closeImageModal()">
         <img id="expanded-image">
         <p class="modal-guide">👆 화면을 클릭하면 닫힙니다 (Click to Close)</p>
@@ -240,10 +217,6 @@
                         영원한 생명의 빛이신 예수 그리스도를 조명하며, 대림절 기간 하늘의 빛이 임재하고(Incarnation) 확장되는(Expansion) 여정을 그립니다.
                     </p>
                     
-                    <button class="vertical-btn" onclick="openVerticalVideo()">
-                        🎄 [Special] 세로 숏폼 영상 보기 (Click)
-                    </button>
-
                     <details>
                         <summary>상세 기획 의도 보기</summary>
                         <div class="detail-content">
@@ -254,6 +227,13 @@
                             </ul>
                         </div>
                     </details>
+                </div>
+
+                <div class="glass-card" style="margin-top: 30px; padding: 25px;">
+                    <h3 style="color: var(--white-gold); margin: 0 0 20px 0;">📽️ 프로젝트 소개 영상</h3>
+                    <video controls playsinline width="100%" style="border-radius: 12px; outline: 2px solid rgba(255,215,0,0.3);">
+                        <source src="main.mp4" type="video/mp4">
+                    </video>
                 </div>
             </section>
             
@@ -306,7 +286,7 @@
                     <summary>주차별 Action Plan 상세 보기</summary>
                     <div class="detail-content">
                         <ul>
-                            <li><strong>2주차 (12.07):</strong> 대림절 엽서 배포 (이미지 참조). 성도들에게 빛을 기다리는 마음 공유.</li>
+                            <li><strong>2주차 (12.07):</strong> 대림절 엽서 배포. 성도들에게 빛을 기다리는 마음 공유.</li>
                             <li><strong>3주차 (12.14):</strong> QR 코드 플레이리스트 공유. 일상 속에서 듣는 빛의 노래.</li>
                             <li><strong>4주차 (12.21):</strong> D-DAY 무대 디자인 적용. 빛의 강림 시각화.</li>
                         </ul>
@@ -404,6 +384,10 @@
             <section>
                 <h2>3. 4F Welcome Lounge Map & Path</h2>
                 
+                <div class="lounge-img-wrapper">
+                    <img src="lounge_mockup.jpg" class="lounge-img" onclick="expandImage(this.src)">
+                </div>
+
                 <div class="space-grid">
                     <div class="space-card">
                         <div class="zone-header"><span class="zone-badge">Zone A</span><span class="zone-icon">☕</span></div>
@@ -469,21 +453,7 @@
         }
         introVideo.onended = endIntro;
 
-        // 2. 세로 영상 모달 로직
-        const vModal = document.getElementById('vertical-modal');
-        const vPlayer = document.getElementById('vertical-video-player');
-
-        function openVerticalVideo() {
-            vModal.style.display = 'flex';
-            vPlayer.currentTime = 0;
-            vPlayer.play();
-        }
-        function closeVerticalVideo() {
-            vModal.style.display = 'none';
-            vPlayer.pause();
-        }
-
-        // 3. 이미지 확대 모달 로직
+        // 2. 이미지 확대 모달 로직
         const imgModal = document.getElementById('image-modal');
         const expandedImg = document.getElementById('expanded-image');
 
