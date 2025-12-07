@@ -88,6 +88,7 @@
         .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px 100px; opacity: 0; transition: opacity 1.5s ease-in; }
         header {
             text-align: center; padding: 140px 20px 100px;
+            /* 1주차 이미지로 변경된 stage_design.png를 헤더 배경으로도 활용 */
             background: linear-gradient(rgba(26,0,36,0.7), rgba(26,0,36,0.9)), url('stage_design.png'); 
             background-size: cover; background-position: center; border-bottom: 1px solid rgba(255,255,255,0.05);
         }
@@ -111,7 +112,7 @@
         /* 0. Context */
         .context-box { padding: 40px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--gold); }
         .context-title { color: var(--gold); font-size: 1.2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
-        .context-text { font-size: 1.05rem; color: #ddd; margin-bottom: 20px; }
+        .context-text { font-size: 1.05rem; color: #ddd; margin-bottom: 20px; line-height: 1.8; }
         .highlight-text { color: #fff; font-weight: bold; background: linear-gradient(120deg, rgba(106, 13, 173, 0.5) 0%, rgba(106, 13, 173, 0.1) 100%); padding: 0 5px; }
 
         /* 1. Flow Visuals */
@@ -241,11 +242,18 @@
             <section>
                 <h2>0. Background & Purpose</h2>
                 <div class="glass-card context-box">
-                    <span class="context-title">기획 배경 (Context)</span>
-                    <p class="highlight-text" style="display:inline-block; margin-bottom:15px;">"온기(Warmth)는 빛(Light)으로부터 옵니다."</p>
+                    <span class="context-title">기획 배경 및 의도 (Deep Context)</span>
+                    <p class="highlight-text" style="display:inline-block; margin-bottom:15px;">"질그릇에 담긴 보배, 우리 안의 영원한 온기"</p>
+                    
                     <p class="context-text">
-                        2025년 한 해 &lt;온기&gt; 프로젝트의 완결판. 
-                        영원한 생명의 빛이신 예수 그리스도를 조명하며, 대림절 기간 하늘의 빛이 임재하고(Incarnation) 확장되는(Expansion) 여정을 그립니다.
+                        우리는 지난 1년, 잃어버린 영혼들에게 그리스도의 '온기'를 전하기 위해 쉼 없이 달려왔습니다. 
+                        이제 그 온기의 근원이자 실체이신 <strong>'영원한 생명의 빛(EverLight)'</strong> 앞에 섭니다. 
+                        이 프로젝트는 단순한 연말 행사가 아닙니다.
+                    </p>
+                    <p class="context-text">
+                        흑암과 같은 세상, 그리고 여전히 연약한 우리 내면의 '질그릇' 속에 보배로운 빛이 담기는(Indwelling) 거룩한 사건입니다. 
+                        대림절 4주간, 우리는 하늘의 빛이 땅으로 내려와(Incarnation) 우리 삶을 덥히고, 
+                        마침내 세상을 향해 거침없이 뻗어 나가는(Expansion) 영광스러운 회복의 여정을 걷게 될 것입니다.
                     </p>
                     
                     <button class="vertical-btn" onclick="openVerticalVideo()">
@@ -257,11 +265,19 @@
                         <div class="detail-content">
                             <strong>🎯 기획 목적</strong>
                             <ul>
-                                <li><strong>연결성:</strong> &lt;온기&gt; 프로젝트와 연결하여 사역의 연속성 확보.</li>
-                                <li><strong>격려:</strong> 전도를 위해 애쓴 청년들에게 위로와 축복 제공.</li>
+                                <li><strong>연결성:</strong> &lt;온기&gt; 프로젝트의 완결판으로서 사역의 연속성을 확보하고 신앙의 깊이를 더함.</li>
+                                <li><strong>격려와 회복:</strong> 치열한 삶을 살아낸 청년들에게 위로를 전하고, '내 안의 빛'을 재확인하는 시간.</li>
+                                <li><strong>능동적 참여:</strong> 수동적인 관람을 넘어, 빛을 밝히고 선물을 선택하는 과정을 통해 주체적인 신앙 고백 유도.</li>
                             </ul>
                         </div>
                     </details>
+                </div>
+
+                <div class="glass-card" style="margin-top: 30px; padding: 25px;">
+                    <h3 style="color: var(--white-gold); margin: 0 0 20px 0;">📽️ 프로젝트 소개 영상</h3>
+                    <video controls playsinline width="100%" style="border-radius: 12px; outline: 2px solid rgba(255,215,0,0.3);">
+                        <source src="main.mp4" type="video/mp4">
+                    </video>
                 </div>
             </section>
             
@@ -270,7 +286,7 @@
                 <div class="flow-grid">
                     <div class="glass-card">
                         <div class="flow-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img" onclick="expandImage(this.src)">
+                            <img src="stage_design.png" class="flow-img" onclick="expandImage(this.src)">
                             <div class="flow-overlay">
                                 <span class="flow-date">11.30 (W1)</span>
                                 <div class="flow-title">The Promised Light</div>
@@ -300,23 +316,23 @@
                     </div>
                     <div class="glass-card" style="border: 2px solid var(--gold);">
                         <div class="flow-img-wrapper">
-                            <img src="stage_design.png" class="flow-img" onclick="expandImage(this.src)">
+                            <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="flow-img" onclick="expandImage(this.src)">
                             <div class="flow-overlay">
                                 <span class="flow-date" style="color:var(--gold)">12.21 (D-DAY)</span>
                                 <div class="flow-title">The Shining Light</div>
-                                <div class="flow-kr">비추는 빛 (Stage Design)</div>
+                                <div class="flow-kr">비추는 빛 (Main Event)</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <details>
-                    <summary>주차별 Action Plan 상세 보기</summary>
+                    <summary>주차별 Action Plan 상세 보기 (수정됨)</summary>
                     <div class="detail-content">
                         <ul>
                             <li><strong>2주차 (12.07):</strong> 대림절 엽서 배포. 성도들에게 빛을 기다리는 마음 공유.</li>
                             <li><strong>3주차 (12.14):</strong> QR 코드 플레이리스트 공유. 일상 속에서 듣는 빛의 노래.</li>
-                            <li><strong>4주차 (12.21):</strong> D-DAY 무대 디자인 적용. 빛의 강림 시각화.</li>
+                            <li><strong>4주차 (12.21):</strong> 캔들라이트, 선택강의 및 셀모임 활동, 스프링 홀리나잇 진행.</li>
                         </ul>
                     </div>
                 </details>
@@ -429,12 +445,12 @@
                     </div>
                     <div class="space-card highlight">
                         <div class="zone-header"><span class="zone-badge">Zone C</span><span class="zone-icon">💐</span></div>
-                        <div class="zone-name" style="color:var(--gold)">Gift Garden (Playlist)</div>
-                        <div class="zone-desc">무인 선물 스테이션 + QR 플레이리스트 제공</div>
+                        <div class="zone-name" style="color:var(--gold)">Gift Garden</div>
+                        <div class="zone-desc">무인 선물 스테이션 (자유 수령)</div>
                         <div class="action-point">
                             <strong>Action & Detail</strong>
-                            "당신을 위한 빛의 노래와 꽃입니다"<br>
-                            직접 선물(꽃/카드/QR음악)을 Pick 하여 감동 전달
+                            "당신을 위한 빛과 꽃입니다"<br>
+                            직접 마음에 드는 꽃과 선물을 Pick (부담 Zero)
                         </div>
                     </div>
                 </div>
